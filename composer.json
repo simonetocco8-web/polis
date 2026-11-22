@@ -1,0 +1,40 @@
+{
+  "name": "polis-ai/portal",
+  "description": "Portale pubblico del progetto di ricerca POLIS AI.",
+  "license": "proprietary",
+  "type": "project",
+  "require": {
+    "php": "~8.4.0",
+    "laravel/framework": "^13.0",
+    "league/commonmark": "^2.8"
+  },
+  "require-dev": {
+    "laravel/pint": "^1.27",
+    "phpstan/phpstan": "^2.1",
+    "phpunit/phpunit": "^12.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "post-autoload-dump": [
+      "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+      "@php artisan package:discover --ansi"
+    ],
+    "test": "@php vendor/bin/phpunit"
+  },
+  "config": {
+    "sort-packages": true,
+    "platform": {
+      "php": "8.4.0"
+    }
+  },
+  "prefer-stable": true
+}

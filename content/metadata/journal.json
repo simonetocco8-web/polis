@@ -1,0 +1,13 @@
+{
+  "it": {
+    "avvio-del-portale": {
+      "date": "2026-11-22",
+      "title": "Avvio di POLIS AI e realizzazione del portale",
+      "author": "Codex · redazione assistita da AI",
+      "phase": "Fase fondativa",
+      "release": "1.0.0",
+      "description": "Il progetto prende forma con il portale pubblico, il catalogo documentale e la descrizione del disegno sperimentale.",
+      "categories": ["sviluppo software", "decisioni AI"]
+    }
+  }
+}

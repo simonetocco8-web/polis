@@ -1,0 +1,15 @@
+/.env
+/.phpunit.cache
+/node_modules
+/public/build
+/public/hot
+/vendor
+/bootstrap/cache/*.php
+/storage/logs/*
+/storage/framework/views/*
+/storage/framework/sessions/*
+/storage/framework/cache/data/*
+!/storage/**/.gitignore
+/.phpstan-cache
+/test-results
+/playwright-report

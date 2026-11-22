@@ -1,0 +1,22 @@
+{
+  "it": {
+    "manifesto": {
+      "title": "POLIS AI — Il filosofo-re artificiale",
+      "subtitle": "Documento fondativo del progetto di ricerca, previsto in 16 sezioni con riferimenti bibliografici.",
+      "type": "Documento fondativo",
+      "expected_version": "1.0",
+      "expected_date": "novembre 2026",
+      "current": null,
+      "versions": {}
+    },
+    "costituzione": {
+      "title": "Costituzione della Repubblica di Nova",
+      "subtitle": "Testo previsto con preambolo, 12 titoli, 71 articoli e dichiarazione conclusiva.",
+      "type": "Costituzione",
+      "expected_version": "1.0",
+      "expected_date": "novembre 2026",
+      "current": null,
+      "versions": {}
+    }
+  }
+}
