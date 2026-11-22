@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.0 · Demos · 2026-11-22
+
+- Motore demografico Python indipendente con checkpoint e replay.
+- Profilo standard eseguito con 100.000 cittadini sintetici, 48.212 nuclei residenti e 5.000 imprese.
+- Atlante di Nova con aggregati validati, grafici e download CSV/JSON.
+
+
 ## 0.2.0 · Methodos · 2026-11-22
 
 - Acquisito il Protocollo scientifico Methodos 1.0 con hash verificato.

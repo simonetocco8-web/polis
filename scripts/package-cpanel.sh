@@ -16,13 +16,19 @@ git archive HEAD app artisan bootstrap composer.json composer.lock config conten
 test -f public/build/manifest.json
 cp -a public/build "$stage/public/build"
 git rev-parse HEAD > "$stage/REVISIONE.txt"
-if [[ "$version" == v0.2.0 ]]; then cp docs/deployment-methodos.md "$stage/docs/"; fi
+case "$version" in
+    v0.2.0) cp docs/deployment-methodos.md "$stage/docs/" ;;
+    v0.3.0) cp docs/deployment-demos.md "$stage/docs/" ;;
+esac
 
 cd "$stage"
 composer install --no-dev --prefer-dist --no-interaction --optimize-autoloader
 composer check-platform-reqs --no-dev
 php artisan documents:validate
-if [[ "$version" == v0.2.0 ]]; then php artisan research:validate; fi
+case "$version" in
+    v0.2.0) php artisan research:validate ;;
+    v0.3.0) php artisan research:validate; php artisan demos:validate ;;
+esac
 rm -f bootstrap/cache/*.php
 sed -i 's/^APP_ENV=local$/APP_ENV=production/;s/^APP_DEBUG=true$/APP_DEBUG=false/;s#^APP_URL=.*#APP_URL=https://example.invalid#' .env.example
 test ! -e .env
