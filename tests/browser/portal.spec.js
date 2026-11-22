@@ -68,3 +68,21 @@ test('Costituzione: ricerca, frammenti, articoli e collegamenti', async ({ page,
     await expect(page.getByRole('link', { name: 'Articolo successivo' })).toHaveCount(0);
     expect((await request.get('/biblioteca/costituzione/1.0/markdown')).ok()).toBeTruthy();
 });
+
+test('Methodos: navigabilità, accessibilità e veto sui diritti', async ({ page, request }) => {
+    await page.goto('/metodologia');
+    await expect(page.getByRole('link', { name: 'Consulta il protocollo 1.0' })).toBeVisible();
+    const download = await request.get('/biblioteca/protocollo/1.0/markdown');
+    expect(download.ok()).toBeTruthy();
+    for (const route of ['/biblioteca/protocollo/1.0', '/metodologia/scenari', '/metodologia/indicatori', '/metodologia/polis-index']) {
+        await page.goto(route);
+        expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(page.viewportSize().width);
+        expect((await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze()).violations).toEqual([]);
+    }
+    await page.getByRole('slider', { name: /Prosperità economica/ }).focus();
+    await page.keyboard.press('End');
+    await expect(page.locator('output')).toHaveText('Punteggio dimostrativo: 62,5 / 100');
+    const veto = page.getByRole('checkbox', { name: /violazione grave/ });
+    await veto.check();
+    await expect(page.locator('output')).toHaveText(/Punteggio sospeso/);
+});

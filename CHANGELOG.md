@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.0 · Methodos · 2026-11-22
+
+- Acquisito il Protocollo scientifico Methodos 1.0 con hash verificato.
+- Pubblicati sei scenari, catalogo degli indicatori e Polis Index dimostrativo.
+- Introdotti configurazione versionata, controllo dei prerequisiti e specifica dell’interfaccia di governo.
+
 ## 0.1.1 · Foundation · 2026-11-22
 
 - Pubblicazione del Documento fondativo e della Costituzione, entrambi nella versione originaria 1.0 verificata con SHA-256.

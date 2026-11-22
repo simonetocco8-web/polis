@@ -6,6 +6,7 @@ use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\CommonMark\Node\Block\Heading;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Link;
+use League\CommonMark\Extension\Table\TableExtension;
 use League\CommonMark\Node\Block\Document;
 use League\CommonMark\Node\StringContainerInterface;
 use League\CommonMark\Parser\MarkdownParser;
@@ -24,6 +25,7 @@ final class Markdown
             'max_nesting_level' => 20,
         ]);
         $this->environment->addExtension(new CommonMarkCoreExtension);
+        $this->environment->addExtension(new TableExtension);
     }
 
     /** @param array{articles: int, titles: int}|null $structure */

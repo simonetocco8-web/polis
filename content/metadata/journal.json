@@ -1,5 +1,17 @@
 {
   "it": {
+    "definizione-metodo-scientifico": {
+      "date": "2026-11-22",
+      "title": "La definizione del metodo scientifico di POLIS AI",
+      "author": "POLIS AI · redazione assistita da Codex",
+      "phase": "Methodos",
+      "release": "0.2.0",
+      "description": "I sei scenari, i vincoli indipendenti e le condizioni per future prove confermative.",
+      "categories": [
+        "metodologia",
+        "decisioni AI"
+      ]
+    },
     "nascita-costituzionale-di-nova": {
       "date": "2026-11-22",
       "title": "La nascita costituzionale della Repubblica di Nova",

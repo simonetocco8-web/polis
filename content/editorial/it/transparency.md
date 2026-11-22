@@ -13,3 +13,7 @@ L’elaborazione filosofica e la progettazione del portale sono state assistite 
 ## Dati, fonti e revisioni
 
 I parametri di Nova e le soglie preliminari sono ipotesi progettuali. I riferimenti filosofici sono riportati nella [pagina Filosofia](/filosofia). I risultati sperimentali saranno pubblicati nell’[Osservatorio](/osservatorio) dopo l’esecuzione degli esperimenti. Nuove modifiche umane o tecniche saranno registrate nel [Diario](/diario) o nella cronologia documentale.
+
+## Methodos
+
+Il promotore ha fornito il [protocollo Methodos 1.0](/biblioteca/protocollo/1.0), attribuito a ChatGPT. Codex ha conservato i byte del Markdown e predisposto un catalogo strutturato, un calcolatore dimostrativo e il controllo dei prerequisiti. I valori iniziali, i pesi e le soglie sono ipotesi metodologiche. Le fonti statistiche sono candidate e i dati di calibrazione devono ancora essere acquisiti.

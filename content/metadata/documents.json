@@ -43,6 +43,26 @@
           }
         }
       }
+    },
+    "protocollo": {
+      "title": "Protocollo scientifico POLIS AI",
+      "subtitle": "Methodos · Disegno sperimentale preliminare",
+      "type": "Protocollo metodologico",
+      "expected_version": "1.0",
+      "expected_date": "novembre 2026",
+      "current": "1.0",
+      "versions": {
+        "1.0": {
+          "date": "2026-11-22",
+          "author": "ChatGPT",
+          "status": "Protocollo metodologico preliminare",
+          "sha256": "ab71d3ad157631e76edd3b40237eea2adbc449e35648cc1d87f379661953b422",
+          "provenance": "Protocollo Methodos fornito dal promotore",
+          "changes": "Prima pubblicazione",
+          "previous": null,
+          "original_language": "it"
+        }
+      }
     }
   }
 }
