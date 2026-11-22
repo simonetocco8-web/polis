@@ -34,7 +34,7 @@ final class PortalController
                 'Documento fondativo' => 'Pubblicato',
                 'Costituzione' => 'Pubblicata',
                 'Portale pubblico' => 'Operativo',
-                'Protocollo scientifico dettagliato' => 'Prossima fase',
+                'Protocollo scientifico Methodos' => 'Pubblicato · preliminare',
                 'Motore economico e sociale' => 'Da realizzare',
                 'Governo artificiale operativo' => 'Da realizzare',
                 'Risultati sperimentali' => 'Non ancora disponibili',
@@ -77,7 +77,7 @@ final class PortalController
 
     public function sitemap(): Response
     {
-        $paths = ['/', '/costituzione', '/biblioteca', '/diario', ...array_values(self::PAGES)];
+        $paths = ['/', '/costituzione', '/biblioteca', '/diario', route('method.scenarios', [], false), route('method.indicators', [], false), route('method.index', [], false), ...array_values(self::PAGES)];
         foreach ($this->library->documents() as $id => $document) {
             $paths[] = route('library.show', $id, false);
             foreach (array_keys($document['versions']) as $version) {

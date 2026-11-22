@@ -3,7 +3,8 @@ set -euo pipefail
 
 cd "$(git rev-parse --show-toplevel)"
 output=$(realpath -m "${1:?Indicare la directory di destinazione}")
-version=v0.1.0
+version=${2:-v0.1.0}
+[[ "$version" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]
 name=polis-ai-${version}-cpanel.zip
 work=$(mktemp -d)
 trap 'rm -rf "$work"' EXIT
@@ -15,11 +16,13 @@ git archive HEAD app artisan bootstrap composer.json composer.lock config conten
 test -f public/build/manifest.json
 cp -a public/build "$stage/public/build"
 git rev-parse HEAD > "$stage/REVISIONE.txt"
+if [[ "$version" == v0.2.0 ]]; then cp docs/deployment-methodos.md "$stage/docs/"; fi
 
 cd "$stage"
 composer install --no-dev --prefer-dist --no-interaction --optimize-autoloader
 composer check-platform-reqs --no-dev
 php artisan documents:validate
+if [[ "$version" == v0.2.0 ]]; then php artisan research:validate; fi
 rm -f bootstrap/cache/*.php
 sed -i 's/^APP_ENV=local$/APP_ENV=production/;s/^APP_DEBUG=true$/APP_DEBUG=false/;s#^APP_URL=.*#APP_URL=https://example.invalid#' .env.example
 test ! -e .env
@@ -28,7 +31,7 @@ test ! -d vendor/phpunit
 grep -qx 'APP_KEY=' .env.example
 
 cat > INSTALLAZIONE.txt <<'INSTRUCTIONS'
-POLIS AI · Genesis v0.1.0
+POLIS AI · Pacchetto completo
 
 1. Estrarre lo ZIP in una directory dell'account cPanel fuori dalla document root attuale.
 2. Impostare la document root del dominio su public/ e attivare HTTPS.

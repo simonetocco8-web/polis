@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Proposta di atto governativo Methodos 1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "id", "period", "competence", "instrument", "targets", "parameters", "legal_basis", "estimated_cost_eur_cents", "funding", "duration_months", "expected_effects", "public_rationale"],
+  "properties": {
+    "version": {"const":"1.0"},
+    "id": {"$ref":"#/$defs/id"},
+    "period": {"type":"integer","minimum":1},
+    "competence": {"$ref":"#/$defs/id"},
+    "instrument": {"$ref":"#/$defs/id"},
+    "targets": {"type":"array","minItems":1,"maxItems":100,"uniqueItems":true,"items":{"$ref":"#/$defs/id"}},
+    "parameters": {"type":"object","maxProperties":20,"propertyNames":{"$ref":"#/$defs/id"},"additionalProperties":{"type":["number","boolean"]}},
+    "legal_basis": {"type":"array","minItems":1,"maxItems":20,"items":{"$ref":"#/$defs/id"}},
+    "estimated_cost_eur_cents": {"type":"integer","minimum":0},
+    "funding": {"$ref":"#/$defs/id"},
+    "duration_months": {"type":"integer","minimum":1},
+    "expected_effects": {"type":"string","minLength":1,"maxLength":1000},
+    "public_rationale": {"type":"string","minLength":1,"maxLength":1000}
+  },
+  "$defs": {"id":{"type":"string","pattern":"^[a-z][a-z0-9-]{0,63}$"}}
+}

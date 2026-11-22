@@ -121,3 +121,16 @@ h3 { font-size:1.73rem; margin:.35rem 0 .7rem; }
   .doc-grid { display:block; }
   h2,h3 { break-after:avoid; }
 }
+
+.method-details dt { font-weight: 650; margin-top: .65rem; }
+.method-details dd { margin-inline-start: 0; }
+.method-details code { overflow-wrap: anywhere; }
+.index-form { max-width: 48rem; margin-block: 1.5rem; }
+.index-control { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 3ch; align-items: center; gap: .7rem; padding-block: .55rem; }
+.index-control input { width: 100%; min-width: 0; accent-color: #745526; }
+.index-veto { display: block; margin-block: 1rem; }
+.index-form output { font-weight: 700; }
+@media (max-width: 480px) {
+    .index-control { grid-template-columns: minmax(0, 1fr) 3ch; }
+    .index-control label { grid-column: 1 / -1; }
+}

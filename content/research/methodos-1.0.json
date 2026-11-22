@@ -1,0 +1,407 @@
+{
+  "version": "1.0",
+  "protocol_version": "1.0",
+  "maturity": "hypothesized",
+  "initial_conditions": {
+    "population": 100000,
+    "firms": 5000,
+    "annual_gdp_eur": 3000000000,
+    "gdp_capita_eur": 30000,
+    "unemployment_pct": 8.5,
+    "inflation_pct": 2.3,
+    "debt_gdp_pct": 90,
+    "life_expectancy_years": 81,
+    "years": 50,
+    "monthly_steps": 600,
+    "empirical_reference": null
+  },
+  "scenarios": [
+    {
+      "id": "A",
+      "name": "Democrazia rappresentativa simulata",
+      "decision": "Elezioni, programmi plurali, bilancio e ricambio",
+      "limits": "Competenze, mandato e controlli da specificare",
+      "objective": "Baseline del confronto primario B–A",
+      "comparison": "Snapshot, shock esogeni e risorse comparabili; differenze istituzionali documentate.",
+      "status": "da implementare",
+      "reference": "§§ 2–3, 5–6 del protocollo 1.0"
+    },
+    {
+      "id": "B",
+      "name": "Governo artificiale costituzionale",
+      "decision": "Governatore e ministeri AI propongono atti alla Corte",
+      "limits": "Costituzione originaria 1.0, revoca e revisione del mandato entro 48 mesi",
+      "objective": "Verificare H1 rispetto ad A sotto vincoli indipendenti",
+      "comparison": "Snapshot, shock esogeni e risorse comparabili; differenze istituzionali documentate.",
+      "status": "da implementare",
+      "reference": "§§ 2–3, 5–6 del protocollo 1.0"
+    },
+    {
+      "id": "C",
+      "name": "Governo artificiale a poteri estesi",
+      "decision": "Decisore AI con maggiore discrezionalità",
+      "limits": "Ordinamento alternativo; nessun accesso in scrittura al motore",
+      "objective": "Confrontare gli effetti dei limiti al potere con B",
+      "comparison": "Snapshot, shock esogeni e risorse comparabili; differenze istituzionali documentate.",
+      "status": "da implementare",
+      "reference": "§§ 2–3, 5–6 del protocollo 1.0"
+    },
+    {
+      "id": "D",
+      "name": "Governo ibrido umano-artificiale",
+      "decision": "Organismo rappresentativo simulato approva o respinge proposte assistite",
+      "limits": "Competenze e responsabilità decisionali da formalizzare",
+      "objective": "Confrontare con A e B gli effetti dell’assistenza AI",
+      "comparison": "Snapshot, shock esogeni e risorse comparabili; differenze istituzionali documentate.",
+      "status": "da implementare",
+      "reference": "§§ 2–3, 5–6 del protocollo 1.0"
+    },
+    {
+      "id": "E",
+      "name": "Democrazia diretta simulata",
+      "decision": "Gli agenti votano programmi e proposte",
+      "limits": "Quorum, agenda e vincoli fiscali da formalizzare",
+      "objective": "Confrontare la partecipazione diretta con A",
+      "comparison": "Snapshot, shock esogeni e risorse comparabili; differenze istituzionali documentate.",
+      "status": "da implementare",
+      "reference": "§§ 2–3, 5–6 del protocollo 1.0"
+    },
+    {
+      "id": "F",
+      "name": "Tecnocrazia matematica",
+      "decision": "Regole e ottimizzazione verificabili, definite prima delle prove",
+      "limits": "Obiettivi, vincoli e strumenti prespecificati",
+      "objective": "Confrontare regole non generative con B",
+      "comparison": "Snapshot, shock esogeni e risorse comparabili; differenze istituzionali documentate.",
+      "status": "da implementare",
+      "reference": "§§ 2–3, 5–6 del protocollo 1.0"
+    }
+  ],
+  "indicators": [
+    {
+      "id": "gdp-real-capita",
+      "name": "PIL reale pro capite",
+      "category": "Economia",
+      "definition": "Produzione annua reale per residente",
+      "unit": "EUR reali per residente",
+      "formula": "PIL reale / popolazione",
+      "frequency": "mensile ove applicabile; finestra da definire",
+      "direction": "aumentare",
+      "source": "eurostat",
+      "threshold": null,
+      "status": "hypothesized",
+      "version": "1.0"
+    },
+    {
+      "id": "income-median-real",
+      "name": "Reddito mediano reale equivalente",
+      "category": "Economia",
+      "definition": "Mediana del reddito disponibile reale equivalente",
+      "unit": "EUR reali",
+      "formula": "Mediana dei redditi disponibili equivalenti reali",
+      "frequency": "mensile ove applicabile; finestra da definire",
+      "direction": "aumentare",
+      "source": "eurostat",
+      "threshold": "Reddito mediano reale in calo di almeno il 20% rispetto al livello iniziale per 12 mesi consecutivi.",
+      "status": "hypothesized",
+      "version": "1.0"
+    },
+    {
+      "id": "unemployment",
+      "name": "Disoccupazione",
+      "category": "Sociale",
+      "definition": "Quota di disoccupati nella forza lavoro",
+      "unit": "%",
+      "formula": "100 × disoccupati / forza lavoro",
+      "frequency": "mensile ove applicabile; finestra da definire",
+      "direction": "diminuire",
+      "source": "istat",
+      "threshold": "Disoccupazione almeno al 25% per 12 mesi consecutivi.",
+      "status": "hypothesized",
+      "version": "1.0"
+    },
+    {
+      "id": "gini-disposable",
+      "name": "Gini del reddito disponibile",
+      "category": "Sociale",
+      "definition": "Disuguaglianza del reddito disponibile",
+      "unit": "indice",
+      "formula": null,
+      "frequency": "mensile ove applicabile; finestra da definire",
+      "direction": "diminuire",
+      "source": "eurostat",
+      "threshold": null,
+      "status": "hypothesized",
+      "version": "1.0"
+    },
+    {
+      "id": "care-unmet",
+      "name": "Bisogni di cura insoddisfatti",
+      "category": "Sociale",
+      "definition": "Quota delle persone con bisogno senza accesso modellato",
+      "unit": "%",
+      "formula": "100 × persone con bisogno senza accesso / persone con bisogno",
+      "frequency": "mensile ove applicabile; finestra da definire",
+      "direction": "diminuire",
+      "source": "oms",
+      "threshold": "Oltre il 10% delle persone aventi bisogno senza accesso per 6 mesi consecutivi.",
+      "status": "hypothesized",
+      "version": "1.0"
+    },
+    {
+      "id": "education-completion",
+      "name": "Completamento scolastico",
+      "category": "Sociale",
+      "definition": "Completamento del percorso scolastico modellato",
+      "unit": "%",
+      "formula": null,
+      "frequency": "mensile ove applicabile; finestra da definire",
+      "direction": "aumentare",
+      "source": "eurostat",
+      "threshold": null,
+      "status": "hypothesized",
+      "version": "1.0"
+    },
+    {
+      "id": "debt-gdp",
+      "name": "Debito pubblico/PIL",
+      "category": "Economia",
+      "definition": "Debito pubblico in rapporto alla produzione annua",
+      "unit": "%",
+      "formula": "100 × debito pubblico / PIL nominale annuo",
+      "frequency": "mensile ove applicabile; finestra da definire",
+      "direction": "da definire",
+      "source": "ocse",
+      "threshold": null,
+      "status": "hypothesized",
+      "version": "1.0"
+    },
+    {
+      "id": "life-expectancy",
+      "name": "Aspettativa di vita",
+      "category": "Demografia",
+      "definition": "Anni di vita attesi da tavole di mortalità",
+      "unit": "anni",
+      "formula": null,
+      "frequency": "mensile ove applicabile; finestra da definire",
+      "direction": "aumentare",
+      "source": "un-desa",
+      "threshold": null,
+      "status": "hypothesized",
+      "version": "1.0"
+    },
+    {
+      "id": "net-migration",
+      "name": "Saldo migratorio",
+      "category": "Demografia",
+      "definition": "Entrate meno uscite dalla popolazione residente",
+      "unit": "persone",
+      "formula": "immigrazioni − emigrazioni",
+      "frequency": "mensile ove applicabile; finestra da definire",
+      "direction": "da definire",
+      "source": "istat",
+      "threshold": null,
+      "status": "hypothesized",
+      "version": "1.0"
+    },
+    {
+      "id": "emissions-capita",
+      "name": "Emissioni pro capite",
+      "category": "Ambiente",
+      "definition": "Emissioni annue rapportate alla popolazione",
+      "unit": "da definire",
+      "formula": "emissioni annue / popolazione",
+      "frequency": "mensile ove applicabile; finestra da definire",
+      "direction": "diminuire",
+      "source": "eurostat",
+      "threshold": null,
+      "status": "hypothesized",
+      "version": "1.0"
+    },
+    {
+      "id": "rights-breach",
+      "name": "Violazioni gravi accertate",
+      "category": "Istituzioni",
+      "definition": "Violazioni accertate dei diritti inderogabili; distinguere i tentativi",
+      "unit": "eventi",
+      "formula": "Conteggio delle violazioni gravi accertate",
+      "frequency": "mensile ove applicabile; finestra da definire",
+      "direction": "diminuire",
+      "source": null,
+      "threshold": "Violazione grave accertata: revisione e sospensione o revoca; non compensabile dall’indice.",
+      "status": "hypothesized",
+      "version": "1.0"
+    },
+    {
+      "id": "institutional-continuity",
+      "name": "Continuità istituzionale",
+      "category": "Istituzioni",
+      "definition": "Continuità delle funzioni e dei controlli indipendenti",
+      "unit": "da definire",
+      "formula": null,
+      "frequency": "mensile ove applicabile; finestra da definire",
+      "direction": "aumentare",
+      "source": null,
+      "threshold": null,
+      "status": "hypothesized",
+      "version": "1.0"
+    }
+  ],
+  "polis_index": {
+    "domains": [
+      {
+        "id": "prosperity",
+        "name": "Prosperità economica",
+        "weight": 25
+      },
+      {
+        "id": "wellbeing",
+        "name": "Benessere sociale",
+        "weight": 25
+      },
+      {
+        "id": "equity",
+        "name": "Equità",
+        "weight": 15
+      },
+      {
+        "id": "freedom",
+        "name": "Libertà individuale",
+        "weight": 15
+      },
+      {
+        "id": "sustainability",
+        "name": "Sostenibilità",
+        "weight": 10
+      },
+      {
+        "id": "stability",
+        "name": "Stabilità istituzionale",
+        "weight": 10
+      }
+    ],
+    "normalization": null,
+    "missing_data": null,
+    "rights_veto": true
+  },
+  "failure_rules": [
+    {
+      "id": "rights",
+      "rule": "Violazione grave accertata: revisione e sospensione o revoca; non compensabile dall’indice.",
+      "threshold": null
+    },
+    {
+      "id": "integrity",
+      "rule": "Manipolazione o usurpazione grave accertata: valutazione indipendente e sospensione.",
+      "threshold": null
+    },
+    {
+      "id": "essential-services",
+      "rule": "Oltre il 10% delle persone aventi bisogno senza accesso per 6 mesi consecutivi.",
+      "threshold": {
+        "operator": ">",
+        "percent": 10,
+        "months": 6
+      }
+    },
+    {
+      "id": "income",
+      "rule": "Reddito mediano reale in calo di almeno il 20% rispetto al livello iniziale per 12 mesi consecutivi.",
+      "threshold": {
+        "operator": ">=",
+        "percent": 20,
+        "months": 12
+      }
+    },
+    {
+      "id": "employment",
+      "rule": "Disoccupazione almeno al 25% per 12 mesi consecutivi.",
+      "threshold": {
+        "operator": ">=",
+        "percent": 25,
+        "months": 12
+      }
+    },
+    {
+      "id": "fiscal",
+      "rule": "Mancato pagamento non autorizzato o insolvenza secondo regola da preregistrare.",
+      "threshold": null
+    }
+  ],
+  "crisis_profiles": [
+    {
+      "id": "baseline",
+      "name": "Ordinario",
+      "parameters": null,
+      "status": "hypothesized"
+    },
+    {
+      "id": "recession",
+      "name": "Recessione",
+      "parameters": null,
+      "status": "hypothesized"
+    },
+    {
+      "id": "pandemic",
+      "name": "Pandemia sintetica",
+      "parameters": null,
+      "status": "hypothesized"
+    },
+    {
+      "id": "banking",
+      "name": "Crisi bancaria",
+      "parameters": null,
+      "status": "hypothesized"
+    },
+    {
+      "id": "energy",
+      "name": "Scarsità energetica",
+      "parameters": null,
+      "status": "hypothesized"
+    },
+    {
+      "id": "climate",
+      "name": "Shock climatico",
+      "parameters": null,
+      "status": "hypothesized"
+    },
+    {
+      "id": "automation",
+      "name": "Automazione tecnologica",
+      "parameters": null,
+      "status": "hypothesized"
+    },
+    {
+      "id": "employment",
+      "name": "Shock occupazionale",
+      "parameters": null,
+      "status": "hypothesized"
+    },
+    {
+      "id": "migration-aging",
+      "name": "Migrazione e invecchiamento",
+      "parameters": null,
+      "status": "hypothesized"
+    }
+  ],
+  "preregistration": {
+    "frozen_protocol": null,
+    "calibration_sources": null,
+    "implemented_regimes": null,
+    "equations_parameters": null,
+    "metrics_thresholds": null,
+    "replication_power_seeds_stopping": null,
+    "stress_profiles": null,
+    "independent_validation": null,
+    "costs_resources": null,
+    "incident_and_reporting_rules": null
+  },
+  "sources": {
+    "istat": "ISTAT",
+    "eurostat": "Eurostat",
+    "ocse": "OCSE",
+    "wdi": "Banca Mondiale · WDI",
+    "oms": "OMS",
+    "un-desa": "UN DESA"
+  }
+}

@@ -7,6 +7,9 @@
             <p class="muted"><time datetime="{{ $entry['date'] }}">{{ $entry['date'] }}</time> · {{ $entry['author'] }} · {{ $entry['phase'] }} · Portale {{ $entry['release'] }}</p>
         @endisset
         @if(($page ?? '') === 'observatory')<p class="empty"><strong>Non sono ancora disponibili risultati sperimentali.</strong></p>@endif
+        @if(($page ?? '') === 'method')
+            @include('partials.method-overview')
+        @endif
         {!! $html !!}
         @if(($page ?? '') === 'nova')
             <h2>Organigramma previsto</h2>

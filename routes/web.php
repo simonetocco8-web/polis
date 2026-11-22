@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LibraryController;
+use App\Http\Controllers\MethodController;
 use App\Http\Controllers\PortalController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,6 +14,9 @@ Route::get('/', [PortalController::class, 'home'])->name('home');
 foreach (PortalController::PAGES as $name => $path) {
     Route::get($path, [PortalController::class, 'page'])->name($name);
 }
+Route::get('/metodologia/scenari', MethodController::class)->name('method.scenarios');
+Route::get('/metodologia/indicatori', MethodController::class)->name('method.indicators');
+Route::get('/metodologia/polis-index', MethodController::class)->name('method.index');
 Route::get('/costituzione', [LibraryController::class, 'constitution'])->name('constitution');
 Route::get('/costituzione/articolo/{numero}', [LibraryController::class, 'article'])->name('constitution.article');
 Route::get('/costituzione/versione/{versione}', [LibraryController::class, 'constitution'])->name('constitution.version');
