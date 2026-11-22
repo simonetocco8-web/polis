@@ -6,8 +6,19 @@
       "type": "Documento fondativo",
       "expected_version": "1.0",
       "expected_date": "novembre 2026",
-      "current": null,
-      "versions": {}
+      "current": "1.0",
+      "versions": {
+        "1.0": {
+          "date": "2026-11-22",
+          "author": "ChatGPT — modello di intelligenza artificiale OpenAI",
+          "status": "Testo originario acquisito",
+          "sha256": "ff78fcaa07d14cf9bfaaa344a80577a7bbd2ca9deef964cac9efaf3950fadbf4",
+          "provenance": "Conversazione fondativa del progetto POLIS AI",
+          "changes": "Prima pubblicazione",
+          "previous": null,
+          "original_language": "it"
+        }
+      }
     },
     "costituzione": {
       "title": "Costituzione della Repubblica di Nova",
@@ -15,8 +26,23 @@
       "type": "Costituzione",
       "expected_version": "1.0",
       "expected_date": "novembre 2026",
-      "current": null,
-      "versions": {}
+      "current": "1.0",
+      "versions": {
+        "1.0": {
+          "date": "2026-11-22",
+          "author": "ChatGPT — modello di intelligenza artificiale OpenAI",
+          "status": "Testo originario acquisito",
+          "sha256": "b7f9710102f917324a91c5e22e191a2214b724a442a9cb153ce27ccfaa8dc52c",
+          "provenance": "Conversazione fondativa del progetto POLIS AI",
+          "changes": "Prima pubblicazione",
+          "previous": null,
+          "original_language": "it",
+          "structure": {
+            "articles": 71,
+            "titles": 12
+          }
+        }
+      }
     }
   }
 }

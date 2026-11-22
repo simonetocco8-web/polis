@@ -11,7 +11,7 @@ final class PortalTest extends TestCase
 {
     public static function pages(): iterable
     {
-        foreach (['/', ...array_values(PortalController::PAGES), '/costituzione', '/biblioteca', '/biblioteca/manifesto', '/biblioteca/costituzione', '/diario', '/diario/avvio-del-portale'] as $path) {
+        foreach (['/', ...array_values(PortalController::PAGES), '/costituzione', '/biblioteca', '/biblioteca/manifesto', '/biblioteca/costituzione', '/diario', '/diario/avvio-del-portale', '/diario/nascita-costituzionale-di-nova'] as $path) {
             yield $path => [$path];
         }
     }
@@ -25,12 +25,11 @@ final class PortalTest extends TestCase
         self::assertFalse($response->headers->has('Set-Cookie'));
     }
 
-    public function test_missing_documents_have_no_downloads_or_invented_articles(): void
+    public function test_unpublished_versions_are_unavailable(): void
     {
-        $this->get('/costituzione')->assertOk()->assertSee('In attesa del documento originale')->assertDontSee('Scarica Markdown');
-        $this->get('/costituzione/articolo/1')->assertNotFound()->assertSee('Pagina non trovata');
-        $this->get('/biblioteca/manifesto/1.0')->assertNotFound();
-        $this->get('/biblioteca/manifesto/1.0/markdown')->assertNotFound();
+        $this->get('/costituzione/articolo/72')->assertNotFound()->assertSee('Pagina non trovata');
+        $this->get('/biblioteca/manifesto/2.0')->assertNotFound();
+        $this->get('/biblioteca/manifesto/2.0/markdown')->assertNotFound();
         $this->get('/osservatorio')->assertSee('Non sono ancora disponibili risultati sperimentali.');
     }
 
@@ -40,7 +39,7 @@ final class PortalTest extends TestCase
             $this->get($path)->assertNotFound();
         }
         $this->get('/biblioteca?q[]=a')->assertUnprocessable();
-        $this->get('/biblioteca?q=Costituzione')->assertOk()->assertSee('Costituzione della Repubblica di Nova')->assertDontSee('Documento fondativo del progetto di ricerca');
+        $this->get('/biblioteca?q=Natura+della+Repubblica')->assertOk()->assertSee('Costituzione della Repubblica di Nova')->assertDontSee('Documento fondativo del progetto di ricerca');
         $this->get('/biblioteca?q='.str_repeat('a', 151))->assertUnprocessable();
     }
 
@@ -49,7 +48,8 @@ final class PortalTest extends TestCase
         $this->get('/sitemap.xml')->assertOk()
             ->assertHeader('Content-Type', 'application/xml; charset=UTF-8')
             ->assertSee('/diario/avvio-del-portale')
-            ->assertDontSee('/costituzione/articolo/1');
+            ->assertSee('/costituzione/versione/1.0/articolo/71')
+            ->assertDontSee('/costituzione/versione/1.0/articolo/72');
         $this->get('/robots.txt')->assertOk()->assertSee('Disallow: /');
         $this->get('/')->assertHeader('Content-Security-Policy')->assertHeader('X-Content-Type-Options', 'nosniff');
         config(['polis.indexable' => true]);

@@ -1,0 +1,2 @@
+# Preserve the bytes of the acquired Markdown files on every platform.
+content/documents/**/*.md -text

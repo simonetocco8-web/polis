@@ -26,17 +26,18 @@ final class PortalController
             'parameters' => [
                 'Cittadini' => '100.000', 'Imprese' => '5.000', 'PIL iniziale' => '€3 mld',
                 'PIL pro capite' => '€30.000', 'Orizzonte sperimentale' => '50 anni',
-                'Scenari di governo' => '6', 'Articoli costituzionali previsti' => '71',
+                'Scenari di governo' => '6', 'Articoli costituzionali' => '71',
             ],
             'timeline' => [
-                'Fondamenti filosofici' => 'Documentati nel portale',
-                'Costituzione' => 'In acquisizione',
-                'Portale pubblico' => 'Implementato · pubblicazione da verificare',
-                'Protocollo scientifico' => 'In definizione',
-                'Motore economico e sociale' => 'Da avviare',
-                'Governo artificiale' => 'Da avviare',
-                'Simulazioni comparative' => 'Da avviare',
-                'Pubblicazione dei risultati' => 'Da avviare',
+                'Ideazione' => 'Completata',
+                'Fondamenti filosofici' => 'Completati',
+                'Documento fondativo' => 'Pubblicato',
+                'Costituzione' => 'Pubblicata',
+                'Portale pubblico' => 'Operativo',
+                'Protocollo scientifico dettagliato' => 'Prossima fase',
+                'Motore economico e sociale' => 'Da realizzare',
+                'Governo artificiale operativo' => 'Da realizzare',
+                'Risultati sperimentali' => 'Non ancora disponibili',
             ],
         ]);
     }

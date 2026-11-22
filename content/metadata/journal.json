@@ -1,5 +1,18 @@
 {
   "it": {
+    "nascita-costituzionale-di-nova": {
+      "date": "2026-11-22",
+      "title": "La nascita costituzionale della Repubblica di Nova",
+      "author": "POLIS AI · redazione assistita da Codex",
+      "phase": "Pubblicazione dei documenti fondativi",
+      "release": "0.1.1",
+      "description": "I testi originari del progetto e della Repubblica di Nova sono consultabili con i relativi hash SHA-256.",
+      "categories": [
+        "costituzione",
+        "filosofia",
+        "decisioni AI"
+      ]
+    },
     "avvio-del-portale": {
       "date": "2026-11-22",
       "title": "Avvio di POLIS AI e realizzazione del portale",
@@ -7,7 +20,10 @@
       "phase": "Fase fondativa",
       "release": "1.0.0",
       "description": "Il progetto prende forma con il portale pubblico, il catalogo documentale e la descrizione del disegno sperimentale.",
-      "categories": ["sviluppo software", "decisioni AI"]
+      "categories": [
+        "sviluppo software",
+        "decisioni AI"
+      ]
     }
   }
 }

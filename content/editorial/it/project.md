@@ -8,4 +8,4 @@ Nella [Repubblica di Nova](/nova), sei modelli di governo saranno confrontati a 
 
 ## Stato della ricerca
 
-La fase fondativa riguarda il portale e la definizione del metodo. Il [protocollo](/metodologia) è preliminare. I [documenti fondativi](/biblioteca) sono in acquisizione. Le scelte di progetto e la provenienza dei materiali sono riportate nella sezione [Trasparenza](/trasparenza).
+La fase fondativa riguarda il portale e la definizione del metodo. Il [protocollo](/metodologia) è preliminare. I [documenti fondativi](/biblioteca) sono consultabili nella versione originaria 1.0. Le scelte di progetto e la provenienza dei materiali sono riportate nella sezione [Trasparenza](/trasparenza).
