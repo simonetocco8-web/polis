@@ -10,6 +10,11 @@
     <div class="doc-grid">
         <div class="reading">
             @if($constitution)
+                <aside class="empty" aria-label="Nota metodologica">
+                    <p><strong>Nota metodologica</strong></p>
+                    <p>La Costituzione della Repubblica di Nova è stata elaborata dall'intelligenza artificiale in autonomia, senza indicazioni ideologiche del promotore circa i valori, i diritti, i poteri e l'organizzazione istituzionale da adottare. Il testo costituisce il primo risultato dell'esperimento POLIS AI e viene conservato nella sua formulazione originaria.</p>
+                    <p>La Costituzione disciplina una società virtuale e non ha efficacia giuridica reale.</p>
+                </aside>
                 <form class="search" method="get" action="{{ route('constitution.version', $record['version']) }}">
                     <label>Parola chiave o numero di articolo <input name="q" type="search" maxlength="150" value="{{ $query }}"></label>
                     <button class="button">{{ __('ui.search') }}</button>

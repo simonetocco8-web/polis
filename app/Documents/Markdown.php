@@ -59,7 +59,11 @@ final class Markdown
                             throw new RuntimeException("Titolo fuori sequenza: {$label}");
                         }
                         $number = null;
-                        $activeTitle = $label;
+                        $subtitle = $block->next();
+                        $activeTitle = $subtitle instanceof Heading && $subtitle->getLevel() === 2
+                            && ! preg_match('/^(?:Articolo|Titolo|Preambolo|Dichiarazione conclusiva)\b/iu', $this->headingText($subtitle))
+                            ? $label.' — '.$this->headingText($subtitle)
+                            : $label;
                         $titleIdentifiers[$titleIdentifier] = true;
                         $titleCount++;
                     } elseif (preg_match('/^Preambolo\b/iu', $label)) {

@@ -1,6 +1,6 @@
 # Limiti e requisiti di pubblicazione
 
-- Acquisire, verificare e autorizzare la pubblicazione dei due originali, inclusi la data esatta, il formato e i diritti. Il parser è testato su fixture sintetiche.
+- I due Markdown originali 1.0 sono inclusi e verificati con SHA-256. L’acquisizione documenta la provenienza dichiarata dal promotore.
 - Definire dominio, impostazioni HTTPS, hosting, responsabilità, recapiti per privacy, accessibilità e sicurezza e conservazione dei log.
 - Completare la verifica WCAG con tecnologie assistive e con i testi definitivi.
 - Verificare il deployment cPanel nell’infrastruttura scelta. La build Docker e la risposta HTTP del container sono state verificate in cloud.
