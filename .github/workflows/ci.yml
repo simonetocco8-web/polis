@@ -31,6 +31,7 @@ jobs:
       - run: composer test
       - run: php artisan documents:validate
       - run: php artisan research:validate
+      - run: php artisan demos:validate
       - name: Preserva le versioni documentali pubblicate
         if: github.event_name == 'pull_request' || github.event.before != '0000000000000000000000000000000000000000'
         env:
@@ -40,3 +41,20 @@ jobs:
       - run: npm audit --audit-level=high
       - run: npx playwright install --with-deps chromium
       - run: npm run test:browser
+
+  simulation:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: simulation
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.14'
+          cache: pip
+          cache-dependency-path: simulation/requirements*.lock
+      - run: python -m pip install -r requirements-test.lock
+      - run: python -m demos.cli sources sources --offline
+      - run: git diff --exit-code -- sources
+      - run: python -m unittest discover -s tests -v

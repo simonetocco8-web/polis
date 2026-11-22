@@ -35,6 +35,7 @@ final class PortalController
                 'Costituzione' => 'Pubblicata',
                 'Portale pubblico' => 'Operativo',
                 'Protocollo scientifico Methodos' => 'Pubblicato · preliminare',
+                'Popolazione sintetica Demos' => 'Snapshot iniziale pubblicato',
                 'Motore economico e sociale' => 'Da realizzare',
                 'Governo artificiale operativo' => 'Da realizzare',
                 'Risultati sperimentali' => 'Non ancora disponibili',
@@ -78,6 +79,9 @@ final class PortalController
     public function sitemap(): Response
     {
         $paths = ['/', '/costituzione', '/biblioteca', '/diario', route('method.scenarios', [], false), route('method.indicators', [], false), route('method.index', [], false), ...array_values(self::PAGES)];
+        foreach (array_keys(AtlasController::PAGES) as $section) {
+            $paths[] = route('nova.atlas', $section, false);
+        }
         foreach ($this->library->documents() as $id => $document) {
             $paths[] = route('library.show', $id, false);
             foreach (array_keys($document['versions']) as $version) {

@@ -12,6 +12,9 @@
         @endif
         {!! $html !!}
         @if(($page ?? '') === 'nova')
+            <h2>Atlante statistico</h2>
+            <p>Esplora gli aggregati dello snapshot iniziale di Demos, prodotto dal generatore Python.</p>
+            <a class="button" href="{{ route('nova.atlas', 'popolazione') }}">Repubblica di Nova — Atlante statistico</a>
             <h2>Organigramma previsto</h2>
             <img class="organigram" src="/brand/nova.svg" width="960" height="440" loading="lazy" alt="I cittadini sono titolari della sovranità. La Costituzione disciplina Governatore, agenti specializzati, magistratura e autorità indipendenti.">
         @endif

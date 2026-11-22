@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AtlasController;
 use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\MethodController;
 use App\Http\Controllers\PortalController;
@@ -17,6 +18,8 @@ foreach (PortalController::PAGES as $name => $path) {
 Route::get('/metodologia/scenari', MethodController::class)->name('method.scenarios');
 Route::get('/metodologia/indicatori', MethodController::class)->name('method.indicators');
 Route::get('/metodologia/polis-index', MethodController::class)->name('method.index');
+Route::get('/nova/statistiche.{format}', [AtlasController::class, 'download'])->where('format', 'csv|json')->name('nova.statistics');
+Route::get('/nova/{section}', [AtlasController::class, 'show'])->name('nova.atlas');
 Route::get('/costituzione', [LibraryController::class, 'constitution'])->name('constitution');
 Route::get('/costituzione/articolo/{numero}', [LibraryController::class, 'article'])->name('constitution.article');
 Route::get('/costituzione/versione/{versione}', [LibraryController::class, 'constitution'])->name('constitution.version');

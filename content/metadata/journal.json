@@ -1,5 +1,17 @@
 {
   "it": {
+    "nascita-cittadini-nova": {
+      "date": "2026-11-22",
+      "title": "La nascita dei primi 100.000 cittadini di Nova",
+      "author": "POLIS AI · redazione assistita da Codex",
+      "phase": "Demos",
+      "release": "0.3.0",
+      "description": "Lo snapshot iniziale generato da Demos, con 48.212 nuclei e 5.000 imprese.",
+      "categories": [
+        "simulazione",
+        "sviluppo software"
+      ]
+    },
     "definizione-metodo-scientifico": {
       "date": "2026-11-22",
       "title": "La definizione del metodo scientifico di POLIS AI",

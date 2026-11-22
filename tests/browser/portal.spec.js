@@ -86,3 +86,19 @@ test('Methodos: navigabilità, accessibilità e veto sui diritti', async ({ page
     await veto.check();
     await expect(page.locator('output')).toHaveText(/Punteggio sospeso/);
 });
+
+test('Demos: atlante, piramide accessibile e download aggregato', async ({ page, request }) => {
+    await page.goto('/nova');
+    await page.getByRole('link', { name: /Repubblica di Nova — Atlante statistico/ }).click();
+    await page.getByRole('link', { name: 'Demografia' }).click();
+    await expect(page.getByRole('heading', { name: 'Piramide demografica' })).toBeVisible();
+    await expect(page.getByRole('table', { name: 'Residenti per fascia di età e categoria demografica' })).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(page.viewportSize().width);
+    expect((await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze()).violations).toEqual([]);
+    const response = await request.get('/nova/statistiche.json');
+    expect(response.ok()).toBeTruthy();
+    const data = await response.json();
+    expect(data.totals.population).toBe(100000);
+    expect(data.polis_index).toBeNull();
+    expect(data).not.toHaveProperty('people');
+});

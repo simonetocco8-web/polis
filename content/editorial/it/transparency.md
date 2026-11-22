@@ -17,3 +17,7 @@ I parametri di Nova e le soglie preliminari sono ipotesi progettuali. I riferime
 ## Methodos
 
 Il promotore ha fornito il [protocollo Methodos 1.0](/biblioteca/protocollo/1.0), attribuito a ChatGPT. Codex ha conservato i byte del Markdown e predisposto un catalogo strutturato, un calcolatore dimostrativo e il controllo dei prerequisiti. I valori iniziali, i pesi e le soglie sono ipotesi metodologiche. Le fonti statistiche sono candidate e i dati di calibrazione devono ancora essere acquisiti.
+
+## Demos
+
+Gli [aggregati di Nova](/nova/generazione) derivano da un’esecuzione riproducibile di Demos. Il profilo iniziale usa dati aggregati Eurostat UE-27 per la distribuzione congiunta di età e sesso e per le probabilità di mortalità. Le altre distribuzioni sono ipotesi versionate. Il test mensile verifica l’integrità tecnica delle transizioni. Il Polis Index resta indisponibile per Nova finché mancano misure calibrate.
