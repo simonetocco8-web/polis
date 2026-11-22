@@ -74,8 +74,8 @@ test('Methodos: navigabilità, accessibilità e veto sui diritti', async ({ page
     await expect(page.getByRole('link', { name: 'Consulta il protocollo 1.0' })).toBeVisible();
     const download = await request.get('/biblioteca/protocollo/1.0/markdown');
     expect(download.ok()).toBeTruthy();
-    for (const route of ['scenari', 'indicatori', 'polis-index']) {
-        await page.goto('/metodologia/' + route);
+    for (const route of ['/biblioteca/protocollo/1.0', '/metodologia/scenari', '/metodologia/indicatori', '/metodologia/polis-index']) {
+        await page.goto(route);
         expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(page.viewportSize().width);
         expect((await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze()).violations).toEqual([]);
     }

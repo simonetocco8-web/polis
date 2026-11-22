@@ -75,7 +75,7 @@ h3 { font-size:1.73rem; margin:.35rem 0 .7rem; }
 .breadcrumb { margin-bottom:1.5rem; font-size:.83rem; }
 .page-intro h1 { font-size:clamp(2.7rem,6vw,5.2rem); overflow-wrap:anywhere; }
 .page-intro p { max-width:68ch; }
-.reading { max-width:73ch; }
+.reading { max-width:73ch; min-width:0; overflow-wrap:anywhere; }
 .reading :where(p,ol,ul,dl,blockquote,pre,table) { margin:.9rem 0; }
 .reading :where(h2,h3,h4) { margin:1.5em 0 .4em; }
 .reading :where(ul,ol) { padding-inline-start:1.35rem; }
@@ -105,7 +105,7 @@ h3 { font-size:1.73rem; margin:.35rem 0 .7rem; }
 }
 @media(max-width:650px) {
   .shell { width:calc(100% - 2rem); }
-  .hero-grid,.doc-grid { grid-template-columns:1fr; }
+  .hero-grid,.doc-grid { grid-template-columns:minmax(0,1fr); }
   .hero-copy { padding:3rem 0 1rem; }
   .hero-art { margin:-.8rem -1rem 0; }
   .hero-art img { max-height:300px; object-fit:contain; }
