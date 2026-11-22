@@ -4,7 +4,7 @@ Portale pubblico di un progetto indipendente di ricerca sul governo algoritmico.
 
 ## Avvio locale
 
-Requisiti: PHP 8.4 con le estensioni richieste dal [framework Laravel](https://laravel.com/docs/13.x/deployment#server-requirements), Composer 2 e Node 22.12+ della serie 22 o Node 24. Per i test servono anche DOM, XMLWriter e XMLReader.
+Requisiti: PHP 8.4.1 o successivo della serie 8.4 con le estensioni richieste dal [framework Laravel](https://laravel.com/docs/13.x/deployment#server-requirements), Composer 2 e Node 22.12+ della serie 22 o Node 24. Per i test servono anche DOM, XMLWriter e XMLReader.
 
 ```sh
 composer install

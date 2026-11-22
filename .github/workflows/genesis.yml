@@ -1,0 +1,32 @@
+name: Pubblica Genesis
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: mbstring, dom, curl, fileinfo, intl, zip
+          coverage: none
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: composer audit --locked
+      - run: npm ci && npm audit --audit-level=high && npm run build
+      - run: scripts/package-cpanel.sh "$RUNNER_TEMP/polis-release"
+      - name: Pubblica ZIP e checksum
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create v0.1.0 "$RUNNER_TEMP/polis-release/"* \
+            --target "$GITHUB_SHA" --title Genesis \
+            --notes 'Prima release di POLIS AI. Il pacchetto cPanel include le dipendenze PHP di produzione e gli asset compilati. Richiede PHP 8.4.1+ della serie 8.4. I documenti fondativi originali attendono acquisizione.'
