@@ -3,6 +3,7 @@
 use App\Documents\Library;
 use App\Research\Methodos;
 use App\Statistics\Demos;
+use App\Statistics\Nomos;
 use App\Statistics\Oikonomia;
 use App\Statistics\Stabilitas;
 use Illuminate\Support\Facades\Artisan;
@@ -31,3 +32,8 @@ Artisan::command('stabilitas:validate', function (Stabilitas $audit): void {
     $data = $audit->load();
     $this->info('Stabilitas: '.count($data['standard']).' prove standard e '.count($data['exploratory']).' corse esplorative verificate');
 })->purpose('Verifica provenienza e riconciliazione dell’audit Stabilitas');
+
+Artisan::command('nomos:validate', function (Nomos $nomos): void {
+    $data = $nomos->load();
+    $this->info('Nomos: '.count($data['events']).' eventi verificati · '.$nomos->checksum());
+})->purpose('Verifica versione, provenienza e coerenza dell’esportazione Nomos');

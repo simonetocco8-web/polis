@@ -1,5 +1,14 @@
 {
   "it": {
+    "nascita-stato-diritto-nova": {
+      "date": "2026-11-23",
+      "title": "La nascita dello Stato di diritto della Repubblica di Nova",
+      "author": "POLIS AI · redazione assistita da Codex",
+      "phase": "Nomos",
+      "release": "0.5.0",
+      "description": "Proposte fiscali, ricorsi e revoca verificati in un fascicolo istituzionale riproducibile.",
+      "categories": ["costituzione", "simulazione", "sviluppo software"]
+    },
     "nascita-economia-nova": {
       "date": "2026-11-23",
       "title": "La nascita dell'economia della Repubblica di Nova",

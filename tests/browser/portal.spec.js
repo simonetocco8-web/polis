@@ -110,7 +110,9 @@ test('Oikonomia: serie simulata, accessibilità e download', async ({ page, requ
     await page.getByRole('link', { name: 'PIL e contabilità nazionale' }).click();
     await expect(page.getByRole('table', { name: /Ultimi dodici mesi/ })).toBeVisible();
     await expect(page.getByText(/Prova tecnica con economia chiusa/)).toBeVisible();
-    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(page.viewportSize().width);
+    await page.waitForLoadState('load');
+    await page.evaluate(() => document.fonts.ready);
+    await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(page.viewportSize().width);
     expect((await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze()).violations).toEqual([]);
     const response = await request.get('/nova/economia/statistiche.json');
     expect(response.ok()).toBeTruthy();
@@ -129,4 +131,24 @@ test('Stabilitas: audit, serie e accessibilità', async ({ page, request }) => {
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(page.viewportSize().width);
     expect((await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze()).violations).toEqual([]);
     expect((await request.get('/nova/economia/stabilita/statistiche.csv')).ok()).toBeTruthy();
+});
+
+test('Nomos: accessibilità, cronologia e download istituzionali', async ({ page, request }) => {
+    test.setTimeout(60_000);
+    await page.goto('/nova');
+    await page.getByRole('link', { name: 'Repubblica di Nova — Istituzioni' }).click();
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Istituzioni della Repubblica di Nova');
+    for (const section of ['ordinamento', 'corte', 'atti', 'ricorsi', 'diritti', 'mandato', 'emergenze', 'scenari', 'trasparenza']) {
+        await page.goto('/nova/istituzioni/' + section, { waitUntil: 'load' });
+        await page.evaluate(() => document.fonts.ready);
+        expect(await page.evaluate(() => document.documentElement.scrollWidth), section).toBeLessThanOrEqual(page.viewportSize().width);
+        expect((await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze()).violations).toEqual([]);
+    }
+    const json = await request.get('/nova/istituzioni/statistiche.json');
+    expect(json.ok()).toBeTruthy();
+    expect((await json.json()).metrics.applied).toBe(1);
+    const csv = await request.get('/nova/istituzioni/statistiche.csv');
+    expect(csv.ok()).toBeTruthy();
+    expect(await csv.text()).toContain('pending_review,1');
+    expect(json.headers()['x-nomos-export-sha256']).toBe(csv.headers()['x-nomos-export-sha256']);
 });
