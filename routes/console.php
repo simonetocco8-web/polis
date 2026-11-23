@@ -3,6 +3,7 @@
 use App\Documents\Library;
 use App\Research\Methodos;
 use App\Statistics\Demos;
+use App\Statistics\Oikonomia;
 use Illuminate\Support\Facades\Artisan;
 
 Artisan::command('documents:validate', function (Library $library): void {
@@ -19,3 +20,8 @@ Artisan::command('demos:validate', function (Demos $demos): void {
     $snapshot = $demos->load();
     $this->info('Esportazione Demos verificata: '.$snapshot['snapshot_sha256']);
 })->purpose('Controlla metadata e riconciliazione degli aggregati Demos');
+
+Artisan::command('oikonomia:validate', function (Oikonomia $economy): void {
+    $data = $economy->load();
+    $this->info('Esportazione Oikonomia verificata: '.$data['months'].' mesi · '.$data['final_sha256']);
+})->purpose('Verifica hash, provenienza e riconciliazione economica');

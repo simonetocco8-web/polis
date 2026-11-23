@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AtlasController;
+use App\Http\Controllers\EconomyController;
 use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\MethodController;
 use App\Http\Controllers\PortalController;
@@ -19,6 +20,9 @@ Route::get('/metodologia/scenari', MethodController::class)->name('method.scenar
 Route::get('/metodologia/indicatori', MethodController::class)->name('method.indicators');
 Route::get('/metodologia/polis-index', MethodController::class)->name('method.index');
 Route::get('/nova/statistiche.{format}', [AtlasController::class, 'download'])->where('format', 'csv|json')->name('nova.statistics');
+Route::get('/nova/economia', [EconomyController::class, 'show'])->name('nova.economy');
+Route::get('/nova/economia/statistiche.{format}', [EconomyController::class, 'download'])->where('format', 'csv|json')->name('nova.economy.export');
+Route::get('/nova/economia/{section}', [EconomyController::class, 'show'])->name('nova.economy.section');
 Route::get('/nova/{section}', [AtlasController::class, 'show'])->name('nova.atlas');
 Route::get('/costituzione', [LibraryController::class, 'constitution'])->name('constitution');
 Route::get('/costituzione/articolo/{numero}', [LibraryController::class, 'article'])->name('constitution.article');

@@ -12,6 +12,9 @@
         @endif
         {!! $html !!}
         @if(($page ?? '') === 'nova')
+            <h2>Economia</h2>
+            <p>Consulta gli aggregati della prova tecnica Oikonomia.</p>
+            <a class="button" href="{{ route('nova.economy') }}">Repubblica di Nova — Economia</a>
             <h2>Atlante statistico</h2>
             <p>Esplora gli aggregati dello snapshot iniziale di Demos, prodotto dal generatore Python.</p>
             <a class="button" href="{{ route('nova.atlas', 'popolazione') }}">Repubblica di Nova — Atlante statistico</a>

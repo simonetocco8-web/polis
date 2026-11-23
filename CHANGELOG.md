@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.0 · Oikonomia · 2026-11-23
+
+- Motore economico autonomo, migrazione Demos, libro giornale e riconciliazione dei bilanci.
+- Prova standard di 600 mesi e stress economici, senza calibrazione economica.
+- Osservatorio con serie mensili, download aggregati e pacchetti cPanel.
+
 ## 0.3.0 · Demos · 2026-11-22
 
 - Motore demografico Python indipendente con checkpoint e replay.

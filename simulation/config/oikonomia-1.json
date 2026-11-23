@@ -1,0 +1,13 @@
+{
+  "schema": "oikonomia-config-1", "maturity": "hypothesized", "base_year": 2022,
+  "base_price": 2000, "price_min": 400, "price_max": 10000, "price_response_bp": 250,
+  "opening_firm_deposit": 4000000, "opening_capital": 100, "opening_inventory": 120,
+  "opening_treasury_deposit": 500000000, "bank_reserves": 1000000000,
+  "income_tax_bp": 1500, "sales_tax_bp": 500, "public_wage": 125000,
+  "pension": 42000, "unemployment_benefit": 24000, "public_goods_bp": 700,
+  "productivity": 165, "depreciation_bp": 75, "private_investment_bp": 500,
+  "public_investment_bp": 200, "loan_rate_monthly_bp": 50, "loan_term_months": 24,
+  "firm_credit_limit": 2000000, "household_credit_limit": 120000, "public_credit_limit": 150000000000,
+  "employee_wage_floor": 90000, "essential_units_per_resident": 12, "consumption_bp": 7300,
+  "shock_start_month": 4, "shock_end_month": 9
+}
