@@ -8,8 +8,9 @@ dependencies = ["numpy==2.3.5"]
 test = ["hypothesis==6.155.0", "sortedcontainers==2.4.0"]
 
 [tool.setuptools]
-packages = ["demos", "oikonomia", "stabilitas", "nomos", "archon", "theoria"]
+packages = ["demos", "oikonomia", "stabilitas", "nomos", "archon", "theoria", "experimentum"]
 
 [tool.setuptools.package-data]
 archon = ["prompt-1.0.txt"]
 theoria = ["rules.json"]
+experimentum = ["pilot-001.json"]

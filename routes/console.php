@@ -4,6 +4,7 @@ use App\Documents\Library;
 use App\Research\Methodos;
 use App\Statistics\Archon;
 use App\Statistics\Demos;
+use App\Statistics\Experimentum;
 use App\Statistics\Nomos;
 use App\Statistics\Oikonomia;
 use App\Statistics\Stabilitas;
@@ -49,3 +50,8 @@ Artisan::command('theoria:validate', function (Theoria $theoria): void {
     $data = $theoria->load();
     $this->info('Theoria: '.count($data['cases']).' casi offline verificati');
 })->purpose('Valida il fascicolo pubblico di Theoria');
+
+Artisan::command('experimentum:validate', function (Experimentum $lab): void {
+    $data = $lab->load();
+    $this->info('Experimentum: '.count($data['replicas']).' repliche tecniche verificate');
+})->purpose('Verifica il fascicolo offline di Experimentum');

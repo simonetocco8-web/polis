@@ -1,0 +1,41 @@
+name: Pubblica Experimentum
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: v0.8.0
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: mbstring, dom, curl, fileinfo, intl, zip
+          coverage: none
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: |
+          test "$(git cat-file -t v0.8.0)" = tag
+          git merge-base --is-ancestor v0.8.0 origin/main
+          composer audit --locked
+          npm ci
+          npm audit --audit-level=high
+          npm run build
+      - run: |
+          scripts/package-cpanel.sh "$RUNNER_TEMP/experimentum" v0.8.0
+          scripts/package-experimentum-update.sh "$RUNNER_TEMP/experimentum"
+      - name: Pubblica i pacchetti
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create v0.8.0 "$RUNNER_TEMP/experimentum/"* --verify-tag --title Experimentum \
+            --notes 'Laboratorio sperimentale e pilota tecnico riproducibile, senza confronti governativi. Include pacchetto completo, aggiornamento da Theoria v0.7.0 e checksum SHA-256.'
