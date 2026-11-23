@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.1 · Stabilitas · 2026-11-23
+
+- Riproduzione del baseline storico e audit dei flussi economici.
+- Correzione del controllo di overflow nelle scritture e prova separata di arrotondamento simmetrico dei prezzi.
+- Varianti tecniche accoppiate, osservatorio di stabilità, download aggregati e pacchetti cPanel.
+
 ## 0.4.0 · Oikonomia · 2026-11-23
 
 - Motore economico autonomo, migrazione Demos, libro giornale e riconciliazione dei bilanci.

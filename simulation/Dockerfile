@@ -6,6 +6,7 @@ RUN --mount=type=secret,id=build_ca \
     && pip install --no-cache-dir -r requirements.lock
 COPY demos ./demos
 COPY oikonomia ./oikonomia
+COPY stabilitas ./stabilitas
 COPY config ./config
 COPY sources ./sources
 ENTRYPOINT ["python", "-m", "demos.cli"]

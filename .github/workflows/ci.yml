@@ -33,6 +33,8 @@ jobs:
       - run: php artisan research:validate
       - run: php artisan demos:validate
       - run: php artisan oikonomia:validate
+      - run: php artisan stabilitas:validate
+      - run: git diff --exit-code v0.4.0 HEAD -- content/documents content/research content/statistics/oikonomia.json content/statistics/oikonomia.sha256 simulation/config/oikonomia-1.json simulation/oikonomia-report.md
       - name: Preserva le versioni documentali pubblicate
         if: github.event_name == 'pull_request' || github.event.before != '0000000000000000000000000000000000000000'
         env:

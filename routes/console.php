@@ -4,6 +4,7 @@ use App\Documents\Library;
 use App\Research\Methodos;
 use App\Statistics\Demos;
 use App\Statistics\Oikonomia;
+use App\Statistics\Stabilitas;
 use Illuminate\Support\Facades\Artisan;
 
 Artisan::command('documents:validate', function (Library $library): void {
@@ -25,3 +26,8 @@ Artisan::command('oikonomia:validate', function (Oikonomia $economy): void {
     $data = $economy->load();
     $this->info('Esportazione Oikonomia verificata: '.$data['months'].' mesi · '.$data['final_sha256']);
 })->purpose('Verifica hash, provenienza e riconciliazione economica');
+
+Artisan::command('stabilitas:validate', function (Stabilitas $audit): void {
+    $data = $audit->load();
+    $this->info('Stabilitas: '.count($data['standard']).' prove standard e '.count($data['exploratory']).' corse esplorative verificate');
+})->purpose('Verifica provenienza e riconciliazione dell’audit Stabilitas');

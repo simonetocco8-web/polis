@@ -6,6 +6,7 @@
         @foreach($pages as $id => [$label])
             <a class="button button-secondary" href="{{ $id === 'sintesi' ? route('nova.economy') : route('nova.economy.section', $id) }}" @if($id === $section) aria-current="page" @endif>{{ $label }}</a>
         @endforeach
+        <a class="button button-secondary" href="{{ route('nova.stability') }}">Stabilità economica</a>
     </nav>
     <p class="empty"><strong>Prova tecnica con economia chiusa · {{ $data['months'] }} mesi.</strong> Il modello economico non è calibrato. Nessun confronto tra governi e nessun Polis Index.</p>
     <p><a class="text-link" href="{{ route('nova.economy.export', 'csv') }}">Scarica CSV aggregato</a> · <a class="text-link" href="{{ route('nova.economy.export', 'json') }}">Scarica JSON aggregato</a></p>
