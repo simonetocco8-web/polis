@@ -1,0 +1,14 @@
+{
+  "schema": "stabilitas-config-1",
+  "maturity": "hypothesized",
+  "factor_rules": {
+    "R": {"symmetric_price_rounding": true},
+    "A": {"autonomous_owner_continuity": true},
+    "B": {"entry_months": 12, "entry_deposit_cents": 1500000, "entry_capital_units": 100, "max_entries_per_period": 24},
+    "C": {"interest_distribution_bp": 5000},
+    "D": {"treasury_credit_limit_cents": 100000000000},
+    "E": {"inventory_reserve_divisor": 4},
+    "F": {"arrears_months": 6}
+  },
+  "thresholds": {"employment_drop_percent": 10, "output_drop_percent": 30, "demand_drop_percent": 25, "persistent_months": 6, "terminal_active_share_percent": 10}
+}

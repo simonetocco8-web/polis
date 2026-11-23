@@ -34,9 +34,17 @@ class Journal:
         require(label not in self.codes, f"Duplicate posting: {label}")
         debit = np.ascontiguousarray(debit, dtype="<i8")
         credit = np.ascontiguousarray(credit, dtype="<i8")
-        total = int(debit.sum())
-        require(0 <= total <= LIMIT and total == int(credit.sum()) and np.all(debit >= 0)
-                and np.all(credit >= 0), "Unbalanced or invalid posting")
+        def bounded_total(legs):
+            require(np.all((legs >= 0) & (legs <= LIMIT)), "Invalid posting amount")
+            if len(legs) * int(legs.max(initial=0)) > np.iinfo(np.int64).max:
+                total = sum(map(int, legs))
+            else:
+                total = int(legs.sum())
+            require(total <= LIMIT, "Posting limit exceeded")
+            return total
+
+        total = bounded_total(debit)
+        require(total == bounded_total(credit), "Unbalanced or invalid posting")
         key = f"{self.month}:{label}"
         posting = {"id": key, "total_cents": total, "previous": self.anchor,
                    "debit_accounts": debit_accounts, "credit_accounts": credit_accounts,

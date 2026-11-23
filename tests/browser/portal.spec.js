@@ -119,3 +119,14 @@ test('Oikonomia: serie simulata, accessibilità e download', async ({ page, requ
     expect(data.polis_index).toBeNull();
     expect(data).not.toHaveProperty('people');
 });
+
+test('Stabilitas: audit, serie e accessibilità', async ({ page, request }) => {
+    await page.goto('/nova/economia');
+    await page.getByRole('link', { name: 'Stabilità economica' }).click();
+    await page.waitForLoadState('load');
+    await expect(page.getByRole('heading', { name: 'Cronologia della traiettoria originale' })).toBeVisible();
+    await expect(page.getByRole('table', { name: /Cinque esecuzioni/ })).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(page.viewportSize().width);
+    expect((await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze()).violations).toEqual([]);
+    expect((await request.get('/nova/economia/stabilita/statistiche.csv')).ok()).toBeTruthy();
+});

@@ -12,7 +12,7 @@ from .state import reconcile
 VARIANTS = ("baseline", "recession", "production-shock", "credit-crisis")
 
 
-def step(state, detail=None):
+def step(state, detail=None, policy=None):
     a, c, d = state.accounts, state.config, state.demographics
     month = d.month + 1
     require(month <= d.config["months"], "End of horizon")
@@ -20,6 +20,7 @@ def step(state, detail=None):
     recession = stress and state.variant == "recession"
     halted = stress and state.variant == "credit-crisis"
     journal = Journal(month, state.journal, detail)
+    entries = policy.opening(state, journal) if policy else 0
     price = state.price
     opening_inventory = int(a["inventory"].sum())
     debt_begin = int(a["public_debt"][0])
@@ -29,18 +30,28 @@ def step(state, detail=None):
     banking.lend(state, journal, "firm", np.where(a["active"], staff * c["employee_wage_floor"] * 2 - a["firm_deposit"], 0),
                  c["firm_credit_limit"], halted)
     budget = int(np.count_nonzero(d.people["status"] == 0)) * 38000
-    banking.lend(state, journal, "public", np.array([budget - a["government"][0]]), c["public_credit_limit"], halted)
+    banking.lend(state, journal, "public", np.array([budget - a["government"][0]]), (policy.params.get("treasury_credit_limit_cents", c["public_credit_limit"]) if policy else c["public_credit_limit"]), halted)
     wages = labor.plan(state, recession)
+    if policy and month == 1:
+        policy.first_month["after_plan"] = a["jobs"].copy()
+        policy.first_month["cash_capacity"] = int(a["staff_target"].sum())
     payroll, private_wage_bill = labor.pay_private(state, journal, wages)
+    if policy and month == 1:
+        policy.first_month["after_payroll"] = a["jobs"].copy()
     producing_workers = int((a["jobs"] == 2).sum())
-    output, intermediates = production.produce(state, journal, stress and state.variant == "production-shock")
+    physical = {} if policy else None
+    output, intermediates = production.produce(state, journal, stress and state.variant == "production-shock", physical)
     produced = int(output.sum())
     # Retain technical inputs for the next production cycle. Closed firms'
     # residual goods become available for liquidation at the same clearing price.
-    reserve = np.where(a["active"], (output + 5) // 6 + 10, 0)
+    divisor = policy.params.get("inventory_reserve_divisor", 6) if policy else 6
+    reserve = np.where(a["active"], (output + divisor - 1) // divisor + 10, 0)
     def available():
         return np.maximum(a["inventory"] - reserve, 0)
 
+    entitlements = None
+    if policy:
+        entitlements = public.obligations(state)
     public_pay, transfers = public.pay(state, journal)
     tax = public.tax(state, journal, payroll + public_pay)
     income = payroll + public_pay + transfers - tax
@@ -77,17 +88,20 @@ def step(state, detail=None):
     stock_change = int(a["inventory"].sum()) - opening_inventory
     require(stock_change == produced - intermediates - consumed - public_goods - gross_investment, "Goods balance mismatch")
 
-    banking.service(state, journal, "house")
-    _, late = banking.service(state, journal, "firm")
+    public_service_due = (int(a["public_debt"][0]) * c["loan_rate_monthly_bp"] // 10000
+                          + (int(a["public_debt"][0]) + c["loan_term_months"] - 1) // c["loan_term_months"])
+    house_interest, _ = banking.service(state, journal, "house")
+    firm_interest, late = banking.service(state, journal, "firm")
     public_interest, public_late = banking.service(state, journal, "public")
     a["arrears"][:] = np.where(late, a["arrears"] + 1, 0)
-    failed = (a["arrears"] >= 3) & (a["active"] == 1)
+    failed = (a["arrears"] >= (policy.params.get("arrears_months", 3) if policy else 3)) & (a["active"] == 1)
     credit_losses = banking.write_off(state, journal, failed)
     a["active"][failed] = 0
     private = np.flatnonzero(a["employer"] >= 0)
     fired = private[failed[a["employer"][private]]]
     a["jobs"][fired], a["employer"][fired] = 1, -1
 
+    distributed = policy.distribute(state, journal, house_interest + firm_interest + public_interest) if policy else 0
     interest = public_interest
     public_wages = int(public_pay.sum())
     transfers_total = int(transfers.sum())
@@ -103,6 +117,9 @@ def step(state, detail=None):
     a["income_history"][:] = income
     regions = labor.regroup(income, d.households["territory"], len(d.territories)).tolist()
     price_next = reprice(price, supply, int(desired.sum()) + public_desired + firm_desired + invest_desired, c)
+    if policy and "R" in policy.factors:
+        from stabilitas.policy import symmetric_price
+        price_next = symmetric_price(price, supply, int(desired.sum()) + public_desired + firm_desired + invest_desired, c)
     state.price = price_next
     reconcile(state)
     event = demographic_step(d)
@@ -137,4 +154,6 @@ def step(state, detail=None):
         "bank_credit_halted": bool(halted or a["bank_equity"][0] <= 0), "income_by_region": regions,
         "cash_balance": int(a["government"][0]), "deprived_households": int(((size > 0) & (purchases < essential)).sum()),
     }
+    if policy:
+        policy.observe(state, journal, stats, physical, entitlements, public_service_due, entries, distributed, budget)
     return stats, {"journal": journal.anchor, "batches": len(journal.entries), "demography_hash": sha(canonical(event))}

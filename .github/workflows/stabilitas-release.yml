@@ -1,0 +1,41 @@
+name: Pubblica Stabilitas
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: v0.4.1
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: mbstring, dom, curl, fileinfo, intl, zip
+          coverage: none
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: |
+          test "$(git cat-file -t v0.4.1)" = tag
+          git merge-base --is-ancestor v0.4.1 origin/main
+          composer audit --locked
+          npm ci
+          npm audit --audit-level=high
+          npm run build
+      - run: |
+          scripts/package-cpanel.sh "$RUNNER_TEMP/stabilitas" v0.4.1
+          scripts/package-stabilitas-update.sh "$RUNNER_TEMP/stabilitas"
+      - name: Pubblica i pacchetti
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create v0.4.1 "$RUNNER_TEMP/stabilitas/"* --verify-tag --title Stabilitas \
+            --notes 'Audit causale, serie e varianti tecniche. Gli aggregati e gli hash di Oikonomia v0.4.0 restano invariati. Il rilascio pubblica i pacchetti e non esegue deployment.'

@@ -4,7 +4,7 @@ from .labor import regroup
 from .ledger import apportion
 
 
-def pay(state, journal):
+def obligations(state):
     a, c, d = state.accounts, state.config, state.demographics
     jobs = a["jobs"]
     resident = d.people["status"] == 0
@@ -12,6 +12,12 @@ def pay(state, journal):
     wages = regroup((jobs == 4) * c["public_wage"], d.people["household"], len(a["house_deposit"]))
     transfers = regroup(pensioners * c["pension"] + (jobs == 1) * c["unemployment_benefit"],
                         d.people["household"], len(a["house_deposit"]))
+    return wages, transfers
+
+
+def pay(state, journal):
+    a = state.accounts
+    wages, transfers = obligations(state)
     result = []
     for name, payable in (("public-wages", wages), ("transfers", transfers)):
         paid = apportion(min(int(a["government"][0]), int(payable.sum())), payable)

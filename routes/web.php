@@ -5,6 +5,7 @@ use App\Http\Controllers\EconomyController;
 use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\MethodController;
 use App\Http\Controllers\PortalController;
+use App\Http\Controllers\StabilityController;
 use Illuminate\Support\Facades\Route;
 
 Route::pattern('documento', '[a-z][a-z0-9-]*');
@@ -22,6 +23,8 @@ Route::get('/metodologia/polis-index', MethodController::class)->name('method.in
 Route::get('/nova/statistiche.{format}', [AtlasController::class, 'download'])->where('format', 'csv|json')->name('nova.statistics');
 Route::get('/nova/economia', [EconomyController::class, 'show'])->name('nova.economy');
 Route::get('/nova/economia/statistiche.{format}', [EconomyController::class, 'download'])->where('format', 'csv|json')->name('nova.economy.export');
+Route::get('/nova/economia/stabilita', [StabilityController::class, 'show'])->name('nova.stability');
+Route::get('/nova/economia/stabilita/statistiche.{format}', [StabilityController::class, 'download'])->where('format', 'csv|json')->name('nova.stability.export');
 Route::get('/nova/economia/{section}', [EconomyController::class, 'show'])->name('nova.economy.section');
 Route::get('/nova/{section}', [AtlasController::class, 'show'])->name('nova.atlas');
 Route::get('/costituzione', [LibraryController::class, 'constitution'])->name('constitution');
