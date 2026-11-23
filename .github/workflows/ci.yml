@@ -34,6 +34,8 @@ jobs:
       - run: php artisan demos:validate
       - run: php artisan oikonomia:validate
       - run: php artisan stabilitas:validate
+      - run: php artisan nomos:validate
+      - run: git diff --exit-code v0.4.1 HEAD -- content/documents content/research content/statistics/demos.json content/statistics/oikonomia.json content/statistics/oikonomia.sha256 content/statistics/stabilitas.json content/statistics/stabilitas.sha256 simulation/demos simulation/oikonomia simulation/stabilitas simulation/archive simulation/stabilitas-sources simulation/config/model-1.json simulation/config/oikonomia-1.json simulation/config/stabilitas-1.json
       - run: git diff --exit-code v0.4.0 HEAD -- content/documents content/research content/statistics/oikonomia.json content/statistics/oikonomia.sha256 simulation/config/oikonomia-1.json simulation/oikonomia-report.md
       - name: Preserva le versioni documentali pubblicate
         if: github.event_name == 'pull_request' || github.event.before != '0000000000000000000000000000000000000000'

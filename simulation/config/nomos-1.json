@@ -1,0 +1,16 @@
+{
+  "version": "nomos-procedure-1.0",
+  "status": "hypothesized",
+  "initiative_basis_points": 1000,
+  "quorum_basis_points": 5000,
+  "majority_basis_points_exclusive": 5000,
+  "revision_quorum_basis_points": 6000,
+  "revision_majority_basis_points_exclusive": 6666,
+  "review_months": 48,
+  "notice_months": 3,
+  "max_fiscal_duration_months": 6,
+  "renewal_limit_days_per_decision": 30,
+  "extended_income_tax_max_bp": 1900,
+  "technical_income_tax_bp": 1510,
+  "stabilitas_factors": "R"
+}

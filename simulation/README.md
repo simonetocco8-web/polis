@@ -41,3 +41,7 @@ Per il portale copiare soltanto `runs/export/statistics.json` in `content/statis
 - **Casualità** · Chiave SHA-256 troncata per seed, dominio e mese. Miscelazione vettoriale a 64 bit e conversione ai 53 bit di mantissa per singolo ID. L’ordine o il numero di estrazioni degli altri domini non sposta il sottostream.
 
 Il motore non implementa produzione, prezzi, credito, governo AI o una simulazione confermativa. [Rapporto di calibrazione](calibration.md).
+
+## Nomos
+
+Dalla directory simulation/ eseguire `python -m nomos.cli demo DIRECTORY` per ricostruire il fascicolo istituzionale. La directory di output va trattata come riservata per la presenza del JSONL completo. Le esportazioni pubblicabili sono nomos.json e nomos.sha256. [Architettura e interfacce](../docs/architecture/nomos.md)

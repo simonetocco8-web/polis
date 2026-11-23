@@ -81,6 +81,10 @@ final class PortalController
         $paths = ['/', '/costituzione', '/biblioteca', '/diario', route('method.scenarios', [], false), route('method.indicators', [], false), route('method.index', [], false), ...array_values(self::PAGES)];
         $paths[] = route('nova.economy', [], false);
         $paths[] = route('nova.stability', [], false);
+        $paths[] = route('nova.institutions', [], false);
+        foreach (array_keys(InstitutionController::SECTIONS) as $section) {
+            $paths[] = route('nova.institutions.section', $section, false);
+        }
         foreach (array_keys(EconomyController::PAGES) as $section) {
             if ($section !== 'sintesi') {
                 $paths[] = route('nova.economy.section', $section, false);

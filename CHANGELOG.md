@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.0 · Nomos · 2026-11-23
+
+- Competenze, Corte, ricorsi, emergenze a calendario giornaliero, revoca e continuità per il fascicolo dimostrativo.
+- Due strumenti fiscali tipizzati, con applicazione autorizzata su un percorso economico versionato e replay del registro.
+- Sezione Istituzioni, esportazioni aggregate verificate e pacchetti cPanel completo e di aggiornamento da Stabilitas.
+
 ## 0.4.1 · Stabilitas · 2026-11-23
 
 - Riproduzione del baseline storico e audit dei flussi economici.
