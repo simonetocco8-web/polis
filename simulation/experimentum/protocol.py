@@ -1,4 +1,5 @@
 from pathlib import Path
+from hashlib import sha256
 
 from archon.contracts import canonical, digest, parse, require
 
@@ -31,6 +32,13 @@ TRANSITIONS = {
     "INVALIDATED": set(),
 }
 
+
+
+def sources():
+    root = Path(__file__).resolve().parents[1]
+    paths = ("requirements.lock", "config/model-1.json", "config/oikonomia-1.json", "config/stabilitas-1.json",
+             "sources/reference-2022.json", "oikonomia/engine.py", "stabilitas/policy.py", "demos/engine.py")
+    return {name: sha256((root / name).read_bytes()).hexdigest() for name in paths}
 
 def transition(previous, current):
     require(current in TRANSITIONS.get(previous, ()), "Transizione scientifica non permessa")

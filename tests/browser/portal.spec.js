@@ -180,3 +180,16 @@ test('Theoria: fascicolo offline accessibile e integrità', async ({ page, reque
     const response = await request.get('/nova/osservatorio/statistiche.json');
     expect((await response.json()).mode).toBe('offline-public-fixture');
 });
+
+test('Experimentum: pilota riprodotto e confronto scientifico bloccato', async ({ page, request }) => {
+    await page.goto('/ricerca/esperimenti');
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Laboratorio scientifico');
+    await page.getByRole('link', { name: 'Confronti' }).click();
+    await page.waitForLoadState('load');
+    await page.evaluate(() => document.fonts.ready);
+    await expect(page.getByRole('heading', { name: /Non ammissibile/ })).toBeVisible();
+    await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(page.viewportSize().width);
+    expect((await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze()).violations).toEqual([]);
+    const response = await request.get('/ricerca/esperimenti/statistiche.json');
+    expect((await response.json()).readiness.state).toBe('NOT_READY');
+});

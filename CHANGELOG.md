@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.8.0 · Experimentum · 2026-11-23
+
+- Preregistrazione con digest esterno, riproduzione da checkpoint e audit indipendente degli export.
+- Pilota offline di tre repliche da sei mesi, senza confronto politico né calibrazione confermativa.
+- Laboratorio Laravel, export aggregati e pacchetti cPanel completo e incrementale.
+
 ## 0.7.0 · Theoria · 2026-11-23
 
 - Osservatorio indipendente con audit deterministico, replay dei fascicoli e controlli delle ricevute Nomos.

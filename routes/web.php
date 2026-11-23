@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AtlasController;
 use App\Http\Controllers\EconomyController;
+use App\Http\Controllers\ExperimentumController;
 use App\Http\Controllers\GovernorController;
 use App\Http\Controllers\InstitutionController;
 use App\Http\Controllers\LibraryController;
@@ -51,3 +52,7 @@ Route::get('/diario', [PortalController::class, 'journal'])->name('journal');
 Route::get('/diario/{slug}', [PortalController::class, 'journalEntry'])->name('journal.show');
 Route::get('/sitemap.xml', [PortalController::class, 'sitemap'])->name('sitemap');
 Route::get('/robots.txt', [PortalController::class, 'robots'])->name('robots');
+
+Route::get('/ricerca/esperimenti', [ExperimentumController::class, 'show'])->name('research.experiments');
+Route::get('/ricerca/esperimenti/statistiche.{format}', [ExperimentumController::class, 'download'])->where('format', 'json|csv|sha256')->name('research.experiments.export');
+Route::get('/ricerca/esperimenti/{section}', [ExperimentumController::class, 'show'])->name('research.experiments.section');
