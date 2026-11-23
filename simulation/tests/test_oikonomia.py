@@ -72,6 +72,32 @@ class OikonomiaTest(unittest.TestCase):
         lend(state, Journal(2, journal.anchor), "firm", request, 20000, halted=True)
         self.assertEqual(0, a["bank_loans"][0])
 
+    def test_insolvent_firm_is_closed_and_bank_with_nonpositive_equity_halts(self):
+        state = self.small()
+        a = state.accounts
+        state.config["opening_reserves"] -= int(a["bank_equity"][0]) - 1
+        a["bank_equity"][0] = 1
+        state.config["loan_rate_monthly_bp"] = 0
+        request = np.zeros_like(a["firm_debt"])
+        request[0] = 50000
+        journal = Journal(0, state.journal)
+        lend(state, journal, "firm", request, 50000)
+        payout = np.zeros_like(request)
+        payout[0] = a["firm_deposit"][0]
+        receipt = np.zeros_like(a["house_deposit"])
+        receipt[0] = payout[0]
+        journal.transfer("fixture-payment", a["firm_deposit"], a["house_deposit"], payout, receipt, "firm", "house")
+        state.journal = journal.anchor
+        a["arrears"][0] = 2
+        a["inventory"][0] = 0
+        staff = a["employer"] == 0
+        a["jobs"][staff], a["employer"][staff] = 1, -1
+        row, _ = step(state)
+        self.assertEqual(0, a["active"][0])
+        self.assertGreaterEqual(row["bank_credit_losses"], 50000)
+        self.assertTrue(row["bank_credit_halted"])
+        reconcile(state)
+
     def test_migration_checkpoint_replay_and_isolation(self):
         demos = generate(load_config("smoke", "eu27"), 42)
         original = demos_digest(demos)
