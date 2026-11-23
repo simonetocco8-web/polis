@@ -36,7 +36,7 @@ final class PortalController
                 'Portale pubblico' => 'Operativo',
                 'Protocollo scientifico Methodos' => 'Pubblicato · preliminare',
                 'Popolazione sintetica Demos' => 'Snapshot iniziale pubblicato',
-                'Motore economico e sociale' => 'Da realizzare',
+                'Nucleo economico Oikonomia' => 'Prova tecnica pubblicata',
                 'Governo artificiale operativo' => 'Da realizzare',
                 'Risultati sperimentali' => 'Non ancora disponibili',
             ],
@@ -79,6 +79,12 @@ final class PortalController
     public function sitemap(): Response
     {
         $paths = ['/', '/costituzione', '/biblioteca', '/diario', route('method.scenarios', [], false), route('method.indicators', [], false), route('method.index', [], false), ...array_values(self::PAGES)];
+        $paths[] = route('nova.economy', [], false);
+        foreach (array_keys(EconomyController::PAGES) as $section) {
+            if ($section !== 'sintesi') {
+                $paths[] = route('nova.economy.section', $section, false);
+            }
+        }
         foreach (array_keys(AtlasController::PAGES) as $section) {
             $paths[] = route('nova.atlas', $section, false);
         }

@@ -19,6 +19,11 @@ git rev-parse HEAD > "$stage/REVISIONE.txt"
 case "$version" in
     v0.2.0) cp docs/deployment-methodos.md "$stage/docs/" ;;
     v0.3.0) cp docs/deployment-demos.md "$stage/docs/" ;;
+    v0.4.0)
+        cp docs/deployment-oikonomia.md "$stage/docs/"
+        mkdir -p "$stage/docs/architecture"
+        cp docs/architecture/oikonomia.md "$stage/docs/architecture/"
+        ;;
 esac
 
 cd "$stage"
@@ -28,6 +33,7 @@ php artisan documents:validate
 case "$version" in
     v0.2.0) php artisan research:validate ;;
     v0.3.0) php artisan research:validate; php artisan demos:validate ;;
+    v0.4.0) php artisan research:validate; php artisan demos:validate; php artisan oikonomia:validate ;;
 esac
 rm -f bootstrap/cache/*.php
 sed -i 's/^APP_ENV=local$/APP_ENV=production/;s/^APP_DEBUG=true$/APP_DEBUG=false/;s#^APP_URL=.*#APP_URL=https://example.invalid#' .env.example

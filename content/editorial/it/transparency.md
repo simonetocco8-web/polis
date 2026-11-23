@@ -21,3 +21,7 @@ Il promotore ha fornito il [protocollo Methodos 1.0](/biblioteca/protocollo/1.0)
 ## Demos
 
 Gli [aggregati di Nova](/nova/generazione) derivano da un’esecuzione riproducibile di Demos. Il profilo iniziale usa dati aggregati Eurostat UE-27 per la distribuzione congiunta di età e sesso e per le probabilità di mortalità. Le altre distribuzioni sono ipotesi versionate. Il test mensile verifica l’integrità tecnica delle transizioni. Il Polis Index resta indisponibile per Nova finché mancano misure calibrate.
+
+## Oikonomia
+
+Il [motore economico](/nova/economia/metodologia) usa transazioni simulate e conti riconciliati. I suoi parametri economici sono ipotizzati. Le fonti demografiche di Demos restano le sole serie empiriche utilizzate. L’osservatorio distribuisce serie aggregate e gli hash di provenienza. Il giornale individuale resta nell’ambiente di simulazione.

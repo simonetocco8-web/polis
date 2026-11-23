@@ -1,0 +1,41 @@
+name: Pubblica Oikonomia
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: v0.4.0
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: mbstring, dom, curl, fileinfo, intl, zip
+          coverage: none
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: |
+          test "$(git cat-file -t v0.4.0)" = tag
+          git merge-base --is-ancestor v0.4.0 origin/main
+          composer audit --locked
+          npm ci
+          npm audit --audit-level=high
+          npm run build
+      - run: |
+          scripts/package-cpanel.sh "$RUNNER_TEMP/oikonomia" v0.4.0
+          scripts/package-oikonomia-update.sh "$RUNNER_TEMP/oikonomia"
+      - name: Pubblica i pacchetti
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create v0.4.0 "$RUNNER_TEMP/oikonomia/"* --verify-tag --title Oikonomia \
+            --notes 'Motore economico indipendente, osservatorio con prova tecnica di 600 mesi e pacchetti cPanel con checksum. Il rilascio non esegue deployment.'

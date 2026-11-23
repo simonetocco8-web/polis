@@ -91,6 +91,7 @@ test('Demos: atlante, piramide accessibile e download aggregato', async ({ page,
     await page.goto('/nova');
     await page.getByRole('link', { name: /Repubblica di Nova — Atlante statistico/ }).click();
     await page.getByRole('link', { name: 'Demografia' }).click();
+    await page.waitForLoadState('load');
     await expect(page.getByRole('heading', { name: 'Piramide demografica' })).toBeVisible();
     await expect(page.getByRole('table', { name: 'Residenti per fascia di età e categoria demografica' })).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(page.viewportSize().width);
@@ -99,6 +100,22 @@ test('Demos: atlante, piramide accessibile e download aggregato', async ({ page,
     expect(response.ok()).toBeTruthy();
     const data = await response.json();
     expect(data.totals.population).toBe(100000);
+    expect(data.polis_index).toBeNull();
+    expect(data).not.toHaveProperty('people');
+});
+
+test('Oikonomia: serie simulata, accessibilità e download', async ({ page, request }) => {
+    await page.goto('/nova');
+    await page.getByRole('link', { name: 'Repubblica di Nova — Economia' }).click();
+    await page.getByRole('link', { name: 'PIL e contabilità nazionale' }).click();
+    await expect(page.getByRole('table', { name: /Ultimi dodici mesi/ })).toBeVisible();
+    await expect(page.getByText(/Prova tecnica con economia chiusa/)).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(page.viewportSize().width);
+    expect((await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze()).violations).toEqual([]);
+    const response = await request.get('/nova/economia/statistiche.json');
+    expect(response.ok()).toBeTruthy();
+    const data = await response.json();
+    expect(data.rows).toHaveLength(600);
     expect(data.polis_index).toBeNull();
     expect(data).not.toHaveProperty('people');
 });

@@ -139,3 +139,13 @@ h3 { font-size:1.73rem; margin:.35rem 0 .7rem; }
 .demos-table th,.demos-table td { padding:.55rem; border-bottom:1px solid var(--rule); text-align:start; overflow-wrap:anywhere; }
 .demos-table meter { display:block; width:100%; height:.72rem; min-width:0; }
 .demos-table .demos-left { direction:rtl; }
+
+.economic-chart { margin-block: 2rem; max-width: 60rem; }
+.economic-chart svg { display:block; width:100%; }
+.economic-grid { fill:none; stroke:var(--rule); stroke-width:1; }
+.economic-line { fill:none; stroke:#745526; stroke-width:2.5; vector-effect:non-scaling-stroke; }
+.economic-table { overflow-x:auto; margin-block:1.5rem 2rem; }
+.economic-table table { min-width:32rem; }
+.economic-table th { min-width:5rem; }
+.reading .demos-table :where(th, td) { min-width: 0; }
+.doc-aside code { overflow-wrap: anywhere; }

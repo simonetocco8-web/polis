@@ -1,5 +1,17 @@
 {
   "it": {
+    "nascita-economia-nova": {
+      "date": "2026-11-23",
+      "title": "La nascita dell'economia della Repubblica di Nova",
+      "author": "POLIS AI · redazione assistita da Codex",
+      "phase": "Oikonomia",
+      "release": "0.4.0",
+      "description": "La prima prova tecnica del motore economico indipendente e i suoi aggregati mensili.",
+      "categories": [
+        "simulazione",
+        "sviluppo software"
+      ]
+    },
     "nascita-cittadini-nova": {
       "date": "2026-11-22",
       "title": "La nascita dei primi 100.000 cittadini di Nova",

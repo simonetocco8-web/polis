@@ -32,6 +32,7 @@ jobs:
       - run: php artisan documents:validate
       - run: php artisan research:validate
       - run: php artisan demos:validate
+      - run: php artisan oikonomia:validate
       - name: Preserva le versioni documentali pubblicate
         if: github.event_name == 'pull_request' || github.event.before != '0000000000000000000000000000000000000000'
         env:
