@@ -34,7 +34,7 @@ def reconstruct(journal, config_path):
     state = new_economy(journal.state.universe, seed)
     for row in journal.events[1:]:
         if row["operation"] == "settle":
-            state, _ = settle(replica, state, stabilized=True)
+            state, _ = settle(replica, state, stabilized=True, publish="indicators" in row["data"])
             require(replica.events[-1] == row, "Replay economico incongruente")
         else:
             replica.apply(row["role"], row["operation"], row["data"])

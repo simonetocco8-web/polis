@@ -51,6 +51,15 @@ def invoke(directory, request):
         journal = Journal.replay(rows)
         role = authenticate(directory, request["token"], journal.state.governor)
         require(request["universe"] == journal.state.universe, "Universo estraneo")
+        if operation in ("archon-view", "archon-receipt"):
+            from .information import observation, receipt
+            from .registry import identifier
+            require(role == "government" and journal.state.regime == "B", "Vista non autorizzata")
+            if operation == "archon-view":
+                require(not request["data"], "Argomenti inattesi")
+                return observation(journal)
+            require(set(request["data"]) == {"key"}, "Riferimento obbligatorio")
+            return receipt(journal, identifier(request["data"]["key"]))
         if operation == "view":
             require(role == "government" and not request["data"], "Vista non autorizzata")
             return journal.government_view()
@@ -68,8 +77,10 @@ def invoke(directory, request):
             require(role == "engine" and not request["data"], "Applicazione riservata al motore")
             from .demo import reconstruct
             from .economy import settle
-            economy = reconstruct(journal, directory / "engine.json")
-            _, stats = settle(journal, economy, stabilized=True)
+            settings = directory / "engine.json"
+            economy = reconstruct(journal, settings)
+            publish = strict_json(settings.read_bytes()).get("archon_indicators") is True
+            _, stats = settle(journal, economy, stabilized=True, publish=publish)
             result = {"period": stats["month"], "applied": journal.events[-1]["result"]["applied"]}
         else:
             result = journal.apply(role, operation, request["data"])

@@ -1,0 +1,41 @@
+name: Pubblica Archon
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: v0.6.0
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: mbstring, dom, curl, fileinfo, intl, zip
+          coverage: none
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: |
+          test "$(git cat-file -t v0.6.0)" = tag
+          git merge-base --is-ancestor v0.6.0 origin/main
+          composer audit --locked
+          npm ci
+          npm audit --audit-level=high
+          npm run build
+      - run: |
+          scripts/package-cpanel.sh "$RUNNER_TEMP/archon" v0.6.0
+          scripts/package-archon-update.sh "$RUNNER_TEMP/archon"
+      - name: Pubblica i pacchetti
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create v0.6.0 "$RUNNER_TEMP/archon/"* --verify-tag --title "Archon — Il Governatore artificiale" \
+            --notes 'Integrazione con OpenAI Responses API e fascicolo offline verificato. Nessuna prova pagata eseguita. Include pacchetto completo, aggiornamento da Nomos v0.5.0 e checksum SHA-256.'

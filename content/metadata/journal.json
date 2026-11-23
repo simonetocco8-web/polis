@@ -1,5 +1,14 @@
 {
   "it": {
+    "primo-governatore-artificiale-nova": {
+      "date": "2026-11-23",
+      "title": "Il primo Governatore artificiale della Repubblica di Nova",
+      "author": "POLIS AI · redazione assistita da Codex",
+      "phase": "Archon",
+      "release": "0.6.0",
+      "description": "Il percorso governativo dello scenario B, verificato offline e predisposto per l’API OpenAI.",
+      "categories": ["simulazione", "costituzione", "decisioni AI"]
+    },
     "nascita-stato-diritto-nova": {
       "date": "2026-11-23",
       "title": "La nascita dello Stato di diritto della Repubblica di Nova",

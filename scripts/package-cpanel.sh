@@ -19,6 +19,7 @@ git rev-parse HEAD > "$stage/REVISIONE.txt"
 case "$version" in
     v0.2.0) cp docs/deployment-methodos.md "$stage/docs/" ;;
     v0.3.0) cp docs/deployment-demos.md "$stage/docs/" ;;
+    v0.6.0) cp docs/deployment-archon.md "$stage/docs/" ;;
     v0.5.0) cp docs/deployment-nomos.md "$stage/docs/" ;;
     v0.4.1) cp docs/deployment-stabilitas.md "$stage/docs/" ;;
     v0.4.0)
@@ -36,6 +37,7 @@ case "$version" in
     v0.2.0) php artisan research:validate ;;
     v0.3.0) php artisan research:validate; php artisan demos:validate ;;
     v0.4.0) php artisan research:validate; php artisan demos:validate; php artisan oikonomia:validate ;;
+    v0.6.0) php artisan research:validate; php artisan demos:validate; php artisan oikonomia:validate; php artisan stabilitas:validate; php artisan nomos:validate; php artisan archon:validate ;;
     v0.5.0) php artisan research:validate; php artisan demos:validate; php artisan oikonomia:validate; php artisan stabilitas:validate; php artisan nomos:validate ;;
     v0.4.1) php artisan research:validate; php artisan demos:validate; php artisan oikonomia:validate; php artisan stabilitas:validate ;;
 esac

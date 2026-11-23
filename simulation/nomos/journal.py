@@ -56,7 +56,8 @@ class Journal:
 
     def government_view(self):
         return {"universe": self.state.universe, "period": self.state.period,
-                "last_economy": copy.deepcopy(self.state.effects[-1]) if self.state.effects else None,
+                "last_economy": {key: self.state.effects[-1][key] for key in ("period", "public_revenue", "public_spending")}
+                if self.state.effects else None,
                 "continuity": self.state.governor is None}
 
     @classmethod

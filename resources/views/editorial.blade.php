@@ -14,6 +14,7 @@
         @if(($page ?? '') === 'nova')
             <h2>Economia</h2>
             <p>Consulta gli aggregati della prova tecnica Oikonomia.</p>
+            <a class="button" href="{{ route('nova.governor') }}">Repubblica di Nova — Governatore artificiale</a>
             <a class="button" href="{{ route('nova.institutions') }}">Repubblica di Nova — Istituzioni</a>
             <a class="button" href="{{ route('nova.economy') }}">Repubblica di Nova — Economia</a>
             <h2>Atlante statistico</h2>
