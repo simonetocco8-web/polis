@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.0 · Theoria · 2026-11-23
+
+- Osservatorio indipendente con audit deterministico, replay dei fascicoli e controlli delle ricevute Nomos.
+- Sezione pubblica statica con fixture offline autorizzata, esportazioni JSON e CSV e validazione SHA-256.
+- Schema preliminare per la comparabilità Methodos A–F e distribuzione cPanel.
+
 ## 0.6.0 · Archon · 2026-11-23
 
 - Cliente governativo isolabile per lo scenario B, osservazioni a ritardo dichiarato e proposte sottoposte a Nomos.

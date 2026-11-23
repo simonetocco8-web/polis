@@ -1,0 +1,1 @@
+{"version":"theoria-rules-1.0","states":["VERIFIED","PARTIALLY_VERIFIED","UNVERIFIED","NOT_APPLICABLE","INSUFFICIENT_EVIDENCE","PENDING_OUTCOME","INTEGRITY_FAILURE"],"qualitative":"presence-only","causal":"requires-preregistered-comparison","scenario_ids":["A","B","C","D","E","F"]}
