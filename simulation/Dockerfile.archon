@@ -1,0 +1,11 @@
+FROM python:3.12.14-slim
+WORKDIR /client
+ARG INSTALL_OPENAI=0
+COPY requirements-archon.lock ./
+RUN --mount=type=secret,id=build_ca \
+    if [ -s /run/secrets/build_ca ]; then export PIP_CERT=/run/secrets/build_ca; fi \
+    && if [ "$INSTALL_OPENAI" = "1" ]; then pip install --no-cache-dir -r requirements-archon.lock; fi
+COPY archon/*.py archon/prompt-1.0.txt ./archon/
+ENV PYTHONDONTWRITEBYTECODE=1
+USER 65532:65532
+ENTRYPOINT ["python", "-m", "archon.cli"]

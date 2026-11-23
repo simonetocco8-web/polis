@@ -152,3 +152,18 @@ test('Nomos: accessibilità, cronologia e download istituzionali', async ({ page
     expect(await csv.text()).toContain('pending_review,1');
     expect(json.headers()['x-nomos-export-sha256']).toBe(csv.headers()['x-nomos-export-sha256']);
 });
+
+test('Archon: fascicolo offline accessibile e download verificabile', async ({ page, request }) => {
+    await page.goto('/nova/governo');
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Il Governatore artificiale');
+    await expect(page.getByText('Prova offline.')).toBeVisible();
+    await page.getByRole('link', { name: 'Diario delle decisioni' }).click();
+    await page.waitForLoadState('load');
+    await page.evaluate(() => document.fonts.ready);
+    await expect(page.getByRole('heading', { name: 'Mese 4 · Astensione' })).toBeVisible();
+    await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(page.viewportSize().width);
+    expect((await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze()).violations).toEqual([]);
+    const response = await request.get('/nova/governo/statistiche.json');
+    expect(response.ok()).toBeTruthy();
+    expect((await response.json()).api_calls).toBe(0);
+});

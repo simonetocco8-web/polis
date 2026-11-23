@@ -45,3 +45,7 @@ Il motore non implementa produzione, prezzi, credito, governo AI o una simulazio
 ## Nomos
 
 Dalla directory simulation/ eseguire `python -m nomos.cli demo DIRECTORY` per ricostruire il fascicolo istituzionale. La directory di output va trattata come riservata per la presenza del JSONL completo. Le esportazioni pubblicabili sono nomos.json e nomos.sha256. [Architettura e interfacce](../docs/architecture/nomos.md)
+
+## Archon
+
+Da simulation/ eseguire `python -m archon_lab DIRECTORY` per riprodurre la fixture offline. Il client, il provider reale opt-in e la separazione via Docker sono descritti nella [specifica Archon](../docs/architecture/archon.md).

@@ -82,6 +82,10 @@ final class PortalController
         $paths[] = route('nova.economy', [], false);
         $paths[] = route('nova.stability', [], false);
         $paths[] = route('nova.institutions', [], false);
+        $paths[] = route('nova.governor', [], false);
+        foreach (array_keys(GovernorController::SECTIONS) as $section) {
+            $paths[] = route('nova.governor.section', $section, false);
+        }
         foreach (array_keys(InstitutionController::SECTIONS) as $section) {
             $paths[] = route('nova.institutions.section', $section, false);
         }

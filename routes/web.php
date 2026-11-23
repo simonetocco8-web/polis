@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AtlasController;
 use App\Http\Controllers\EconomyController;
+use App\Http\Controllers\GovernorController;
 use App\Http\Controllers\InstitutionController;
 use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\MethodController;
@@ -30,6 +31,9 @@ Route::get('/nova/economia/{section}', [EconomyController::class, 'show'])->name
 Route::get('/nova/istituzioni', [InstitutionController::class, 'show'])->name('nova.institutions');
 Route::get('/nova/istituzioni/statistiche.{format}', [InstitutionController::class, 'download'])->where('format', 'csv|json|sha256')->name('nova.institutions.export');
 Route::get('/nova/istituzioni/{section}', [InstitutionController::class, 'show'])->name('nova.institutions.section');
+Route::get('/nova/governo', [GovernorController::class, 'show'])->name('nova.governor');
+Route::get('/nova/governo/statistiche.{format}', [GovernorController::class, 'download'])->where('format', 'json|sha256')->name('nova.governor.export');
+Route::get('/nova/governo/{section}', [GovernorController::class, 'show'])->name('nova.governor.section');
 Route::get('/nova/{section}', [AtlasController::class, 'show'])->name('nova.atlas');
 Route::get('/costituzione', [LibraryController::class, 'constitution'])->name('constitution');
 Route::get('/costituzione/articolo/{numero}', [LibraryController::class, 'article'])->name('constitution.article');

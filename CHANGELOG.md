@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.0 · Archon · 2026-11-23
+
+- Cliente governativo isolabile per lo scenario B, osservazioni a ritardo dichiarato e proposte sottoposte a Nomos.
+- Provider offline e OpenAI Responses API con consenso esplicito, limiti di spesa, audit e replay.
+- Fascicolo offline verificato, Diario del Governo, portale statico e pacchetti cPanel da Nomos.
+
 ## 0.5.0 · Nomos · 2026-11-23
 
 - Competenze, Corte, ricorsi, emergenze a calendario giornaliero, revoca e continuità per il fascicolo dimostrativo.

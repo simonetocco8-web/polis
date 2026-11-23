@@ -1,4 +1,5 @@
 import json
+import math
 from collections import Counter
 from datetime import date, timedelta
 
@@ -355,7 +356,7 @@ class Institutions:
                     or item["state"] == "executive")
                 and item["payload"]["period"] <= month < item["payload"]["period"] + item["payload"]["duration_months"]}
 
-    def settle(self, role, period, receipts, effect, economic_anchor):
+    def settle(self, role, period, receipts, effect, economic_anchor, indicators=None):
         integer(period, self.period + 1, self.period + 1)
         active = self.policies()
         require(receipts == sorted(active), "Ricevute economiche incoerenti")
@@ -363,6 +364,11 @@ class Institutions:
                 and all(type(v) is int and 0 <= v < 10**15 for v in effect.values()), "Aggregati economici non validi")
         require(isinstance(economic_anchor, str) and len(economic_anchor) == 64
                 and all(c in "0123456789abcdef" for c in economic_anchor), "Testa economica non valida")
+        if indicators is not None:
+            from .information import INDICATORS
+            require(type(indicators) is dict and set(indicators) == set(INDICATORS)
+                    and all(v is None or (type(v) in (int, float) and math.isfinite(v) and abs(v) < 10**16)
+                            for v in indicators.values()), "Indicatore autorizzato non valido")
         first = []
         for key, item in active.items():
             if item["applied"] is None:
@@ -374,7 +380,7 @@ class Institutions:
                 if item["state"] != "review":
                     item["state"] = "expired"
         self.period = period
-        self.effects.append({"period": period, **effect})
+        self.effects.append({"period": period, **effect, **({"indicators": indicators} if indicators is not None else {})})
         return {"period": period, "applied": sorted(first), "active": receipts, "effect": effect,
                 "economic_anchor": economic_anchor}
 

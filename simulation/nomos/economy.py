@@ -4,7 +4,7 @@ from stabilitas.policy import Policy
 from .registry import INSTRUMENTS, require
 
 
-def settle(journal, economy, stabilized=False):
+def settle(journal, economy, stabilized=False, publish=False):
     """Engine-only bridge. Takes effect from the journal, with no proposal argument."""
     state = journal.state
     require(economy.demographics.replica == state.universe and economy.demographics.month == state.period,
@@ -24,6 +24,10 @@ def settle(journal, economy, stabilized=False):
     stats["cpi"] = round(100 * full_price / (base + base * baseline["sales_tax_bp"] // 10000), 6)
     candidate.config = baseline
     effect = {key: stats[key] for key in ("public_revenue", "public_spending")}
+    extras = {}
+    if publish:
+        from .information import INDICATORS
+        extras["indicators"] = {key: stats[key] for key in INDICATORS}
     journal.apply("engine", "settle", {"period": stats["month"], "receipts": sorted(active), "effect": effect,
-                                       "economic_anchor": candidate.journal})
+                                       "economic_anchor": candidate.journal, **extras})
     return candidate, stats
