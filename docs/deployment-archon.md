@@ -29,4 +29,4 @@ Per un checkout Git pulito, dopo il backup usare `git fetch origin tag v0.6.0` e
 
 ## Installazione nuova
 
-Verificare il checksum dello ZIP completo, estrarlo in una directory privata e seguire la guida cPanel. Le dipendenze PHP di produzione e gli asset Vite sono inclusi. Creare la configurazione locale dalla copia di esempio, attivare HTTPS e generare una nuova APP_KEY per la nuova installazione. Verificare anche `php artisan archon:validate`. Eseguire la simulazione Archon separatamente. [Configurazione del provider](architecture/archon.md)
+Verificare il checksum dello ZIP completo, estrarlo in una directory privata e seguire la guida cPanel. Le dipendenze PHP di produzione e gli asset Vite sono inclusi. Creare la configurazione locale dalla copia di esempio, attivare HTTPS e generare una nuova APP_KEY per la nuova installazione. Verificare anche `php artisan archon:validate`. Eseguire la simulazione Archon separatamente. [Configurazione del provider](https://github.com/simonetocco8-web/polis/blob/v0.6.0/docs/architecture/archon.md)
