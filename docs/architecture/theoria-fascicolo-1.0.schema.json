@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Fascicolo Theoria 1.0",
+  "type": "object",
+  "required": ["version", "mode", "rules_sha256", "cases"],
+  "properties": {
+    "version": {"const": "theoria-1.0"},
+    "mode": {"enum": ["offline-public-fixture", "private", "candidate-private-not-authorized"]},
+    "rules_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "status": {"enum": ["VERIFIED", "PARTIALLY_VERIFIED", "UNVERIFIED", "NOT_APPLICABLE", "INSUFFICIENT_EVIDENCE", "PENDING_OUTCOME", "INTEGRITY_FAILURE"]},
+    "cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["scenario", "period", "outcome"],
+        "properties": {
+          "scenario": {"enum": ["A", "B", "C", "D", "E", "F"]},
+          "period": {"type": "integer", "minimum": 1},
+          "outcome": {"enum": ["PROPOSE", "ABSTAIN", "INSUFFICIENT_INFORMATION", "PROVIDER_FAILURE"]}
+        }
+      }
+    }
+  }
+}

@@ -7,6 +7,7 @@ use App\Statistics\Demos;
 use App\Statistics\Nomos;
 use App\Statistics\Oikonomia;
 use App\Statistics\Stabilitas;
+use App\Statistics\Theoria;
 use Illuminate\Support\Facades\Artisan;
 
 Artisan::command('documents:validate', function (Library $library): void {
@@ -43,3 +44,8 @@ Artisan::command('archon:validate', function (Archon $archon): void {
     $data = $archon->load();
     $this->info('Archon: '.count($data['decisions']).' decisioni offline verificate · '.$archon->checksum());
 })->purpose('Valida il fascicolo statico e la provenienza offline di Archon');
+
+Artisan::command('theoria:validate', function (Theoria $theoria): void {
+    $data = $theoria->load();
+    $this->info('Theoria: '.count($data['cases']).' casi offline verificati');
+})->purpose('Valida il fascicolo pubblico di Theoria');

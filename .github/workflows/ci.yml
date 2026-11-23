@@ -36,6 +36,7 @@ jobs:
       - run: php artisan stabilitas:validate
       - run: php artisan nomos:validate
       - run: php artisan archon:validate
+      - run: php artisan theoria:validate
       - run: git diff --exit-code v0.4.1 HEAD -- content/documents content/research content/statistics/demos.json content/statistics/oikonomia.json content/statistics/oikonomia.sha256 content/statistics/stabilitas.json content/statistics/stabilitas.sha256 simulation/demos simulation/oikonomia simulation/stabilitas simulation/archive simulation/stabilitas-sources simulation/config/model-1.json simulation/config/oikonomia-1.json simulation/config/stabilitas-1.json
       - run: git diff --exit-code v0.4.0 HEAD -- content/documents content/research content/statistics/oikonomia.json content/statistics/oikonomia.sha256 simulation/config/oikonomia-1.json simulation/oikonomia-report.md
       - name: Preserva le versioni documentali pubblicate
@@ -70,3 +71,7 @@ jobs:
       - run: python -m unittest discover -s provider-tests -v
       - run: ../scripts/check-archon-export.sh
       - run: git diff --exit-code v0.5.0 HEAD -- ../docs/architecture/government-proposal-1.0.schema.json ../content/statistics/nomos.json ../content/statistics/nomos.sha256
+      - run: |
+          python -m theoria.cli fixture ../content/statistics/archon.json > "$RUNNER_TEMP/theoria.json"
+          cmp "$RUNNER_TEMP/theoria.json" ../content/statistics/theoria.json
+          git diff --exit-code v0.6.0 HEAD -- archon nomos ../content/statistics/archon.json ../content/statistics/archon.sha256
